@@ -1,0 +1,11 @@
+check,auroc_mean,pr_auc_mean
+D0_baseline_global_leaky_wc_v1,0.8617202455935967,0.14487343524188478
+D1_numerical_confidence_alone,0.11114021968545315,0.0062280511562921
+D2_confidence_disagreement_alone,0.39726859744985416,0.009327116462256617
+D4_global_calibration_risk_alone,0.6466303141396306,
+D4_fold_local_calibration_risk_alone,0.6465813427798099,
+D5_fold_local_ecdf_norm,0.8617202455935967,0.14487343524188478
+D5_whole_val_ecdf_norm,0.8618103091157996,0.14484222645022543
+D6_strict_fold_local_full_formula,0.8617911738396209,0.14481594052486532
+D7_strict_fold_local_no_distance_weight,0.85404094927539,0.1326662014553342
+D8_extra_predictors_only_no_overlap,0.8747143854289657,0.1267249301900069

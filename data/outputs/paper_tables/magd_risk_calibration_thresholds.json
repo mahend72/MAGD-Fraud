@@ -1,0 +1,30 @@
+{
+  "binning": "quartiles_over_test_magd_assurance_risk",
+  "wrong_confident_confidence_threshold": 0.8,
+  "bins": [
+    {
+      "risk_bin": "Low",
+      "min_inclusive": 0.0759974167019756,
+      "max_inclusive": 0.1596920175263723,
+      "cases": 24211
+    },
+    {
+      "risk_bin": "Medium",
+      "min_inclusive": 0.1596924425659229,
+      "max_inclusive": 0.1838449952118537,
+      "cases": 24211
+    },
+    {
+      "risk_bin": "High",
+      "min_inclusive": 0.183845390045213,
+      "max_inclusive": 0.2141915906841025,
+      "cases": 24210
+    },
+    {
+      "risk_bin": "Very high",
+      "min_inclusive": 0.2141935881873104,
+      "max_inclusive": 0.4344306319124352,
+      "cases": 24211
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "mode": "validation_quantile",
+  "low_quantile": 0.6,
+  "high_quantile": 0.9,
+  "low_risk": 0.16248057534570207,
+  "high_risk": 0.22450586646613244,
+  "validation_rows": 119323,
+  "derived_from_split": "val",
+  "generated_at_utc": "2026-08-17T18:40:12.610734+00:00"
+}

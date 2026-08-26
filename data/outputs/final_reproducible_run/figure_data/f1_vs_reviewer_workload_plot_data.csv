@@ -1,0 +1,6 @@
+method,canonical_audit_method_name,f1,reviewer_workload_pct,n_cases,expert_deferrals,escalations,reviewer_workload_cases,naive_intervention_rate_pct_DO_NOT_USE,source_decision_log,on_pareto_frontier
+AI-only,AI-only,0.0718,0.0,96843,0,0,0,0.0,data/outputs/final_reproducible_run/decision_logs/ai_only_decisions.csv,True
+L2D-Standard,L2D-Standard,0.3629,3.75,96843,3627,0,3627,3.75,data/outputs/final_reproducible_run/decision_logs/learning_to_defer_decisions.csv,True
+MAGD-Additive,MAGD-v1-Heuristic,0.2305,97.83,96843,0,18948,94740,19.57,data/outputs/final_reproducible_run/decision_logs/magd_heuristic_decisions.csv,False
+MAGD-Additive-Tuned,MAGD-v1-ValidationTuned,0.0938,1.95,96843,1887,0,1887,1.95,data/outputs/final_reproducible_run/decision_logs/magd_validation_tuned_decisions.csv,True
+MAGD-Fraud,MAGD-v2,0.4466,75.81,96843,0,14684,73420,15.16,data/outputs/final_reproducible_run/magd_v2_test_decisions.csv,True

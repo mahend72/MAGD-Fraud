@@ -1,0 +1,32 @@
+{
+  "variant": "constrained",
+  "weights": {
+    "distance_uncertainty": 0.25,
+    "calibration_risk": 0.25,
+    "neighbor_error_rate": 0.25,
+    "wrong_confident_risk": 0.25,
+    "drift_risk": 0.0,
+    "business_risk": 0.0
+  },
+  "initial_params": {
+    "low_risk": 0.16248057534570207,
+    "high_risk": 0.22450586646613244,
+    "magd_high_threshold": 0.22450586646613244,
+    "wrong_confident_threshold": 0.7,
+    "base_threshold": 0.5,
+    "ai_cost_scale": 1.0,
+    "ai_cost_margin": 0.01,
+    "deferral_target": 0.225
+  },
+  "selected_params": {
+    "low_risk": 0.16248057534570207,
+    "high_risk": 0.22450586646613244,
+    "magd_high_threshold": 0.22450586646613244,
+    "wrong_confident_threshold": 0.7,
+    "base_threshold": 0.5,
+    "ai_cost_scale": 1.0,
+    "ai_cost_margin": 0.01,
+    "deferral_target": 0.225
+  },
+  "tuned_on_split": "validation"
+}

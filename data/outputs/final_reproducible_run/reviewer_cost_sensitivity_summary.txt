@@ -1,0 +1,8 @@
+panel_k = 5
+reviewer cost range evaluated (c_R): [0.0, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05]
+
+MAGD-v2: N_expert=0, N_escalation=14684, ReviewerWorkload=73420, L_fraud=1011.482
+L2D-Standard: N_expert=3627, N_escalation=0, ReviewerWorkload=3627, L_fraud=1086.607
+Break-even reviewer cost c_R* = 0.001076
+  For c_R < 0.001076: MAGD-v2 has lower total cost.
+  For c_R > 0.001076: L2D-Standard has lower total cost.

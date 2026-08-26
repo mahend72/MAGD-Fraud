@@ -1,0 +1,12 @@
+method,audit_coverage,evidence_completeness,complete_decision_logs_rate,missing_evidence_rate,missing_rationale_rate
+AI-only,1.0,1.0,1.0,0.0,0.0
+best expert only,1.0,1.0,1.0,0.0,0.0
+random expert,1.0,1.0,1.0,0.0,0.0
+numerical threshold,1.0,1.0,1.0,0.0,0.0
+distance threshold,1.0,1.0,1.0,0.0,0.0
+oracle upper bound,1.0,1.0,1.0,0.0,0.0
+learning-to-defer baseline,1.0,1.0,1.0,0.0,0.0
+MAGD-Heuristic,1.0,1.0,1.0,0.0,0.0
+MAGD-Learned,1.0,1.0,1.0,0.0,0.0
+MAGD-Fraud-ValidationTuned,1.0,1.0,1.0,0.0,0.0
+MAGD-Constrained,1.0,1.0,1.0,0.0,0.0

@@ -1,0 +1,113 @@
+\section{Experimental Results}
+\label{sec:results}
+
+This section provides a paper-ready results writeup template aligned with the current repository outputs. The text is intentionally conservative and reflects the current empirical pattern in the generated tables: on the present run, MAGD-Fraud is fully implemented and auditable, but it does \emph{not} yet outperform the strongest threshold baseline on the main cost--overreliance trade-off. This is still a publishable outcome if framed correctly as a computational assurance study rather than as a uniformly dominant method.
+
+\subsection{Dataset and Setting Summary}
+\label{subsec:results_setting}
+
+Table~\ref{tab:dataset_summary} summarizes the benchmark setting. The current FiFAR split contains 602{,}961 total cases, with 506{,}118 training cases and 96{,}843 test cases. Fraud prevalence is low (approximately 1.18\%), consistent with a highly imbalanced fraud-review setting. The benchmark includes 50 synthetic experts. In the current configuration, explicit reviewer capacity is not configured, and \texttt{customer\_age} is the active sensitive attribute used for fairness-aware analysis.
+
+\paragraph{Template sentence.}
+``The benchmark setting is operationally relevant in that it is highly imbalanced and includes a nontrivial panel of synthetic experts, but it should still be interpreted as a computational testbed rather than a deployment study with real human reviewers.''
+
+\subsection{AI Model and Assurance Evidence}
+\label{subsec:results_assurance_evidence}
+
+Table~\ref{tab:ai_assurance} summarizes the base AI model and the raw assurance evidence available to MAGD-Fraud. On the current run, the underlying AI system achieves PR-AUC of 0.204 and F1 of 0.0718. The expected calibration error is low (ECE = 0.0028), suggesting that global calibration is not the dominant source of failure in this configuration. The mean distance uncertainty is 0.3401, while the observed wrong-confident rate is 0.0099 and the mean neighbour error rate is 0.0088.
+
+\paragraph{Suggested interpretation.}
+``These statistics suggest that the main challenge is not gross miscalibration at the population level, but the difficulty of identifying a relatively small subset of high-risk or locally unreliable cases without substantially sacrificing coverage.''
+
+\subsection{Comparison Against Baselines}
+\label{subsec:results_baselines}
+
+Table~\ref{tab:baseline_comparison} compares MAGD-Fraud against AI-only, expert-only, threshold-based deferral, learning-to-defer, and an oracle upper bound.
+
+The current run shows several distinct patterns. First, AI-only yields high coverage by construction ($1.0$) but poor recall (0.0385) and high cost-sensitive loss (6914.0). Second, delegating all cases to the best expert substantially improves recall (0.4818) and reduces cost-sensitive loss (5079.0), but sacrifices all AI coverage. Third, among simple routing baselines, distance-threshold deferral performs better than numerical-threshold deferral on cost-sensitive loss (5699.0 vs.\ 5870.0), indicating that geometry-based uncertainty is more informative than score confidence alone in this benchmark.
+
+MAGD-Fraud, in contrast, achieves precision of 0.5044, recall of 0.0399, F1 of 0.0740, and cost-sensitive loss of 6911.0, with AI coverage of 0.9988 and expert deferral rate of 0.0012. Relative to AI-only, this is effectively a near-AI-only policy on the current configuration. Relative to distance-threshold deferral, MAGD-Fraud has materially worse cost-sensitive loss and substantially higher AI coverage, indicating that it is currently too conservative in sending cases away from AI.
+
+\paragraph{Current-results paragraph.}
+``On the present run, MAGD-Fraud does not dominate the strongest threshold baseline. Instead, it remains close to AI-only in its routing behavior, achieving only a small expert deferral rate and no escalation. This yields slightly lower cost-sensitive loss than AI-only, but substantially worse performance than distance-threshold deferral. We therefore interpret the current result not as evidence that multi-evidence assurance is inherently ineffective, but as evidence that the present policy configuration under-utilizes the available assurance signals.''
+
+\paragraph{Alternative shorter version.}
+``The strongest simple baseline in the current run is distance-threshold deferral, not MAGD-Fraud. The current MAGD configuration remains too AI-reliant, producing near-complete AI coverage and only minimal expert deferral. This outcome is important because it shows that simply adding assurance signals is not enough; the routing policy must make nontrivial use of them.''
+
+\subsection{Human--AI Assurance Metrics}
+\label{subsec:results_assurance_metrics}
+
+Table~\ref{tab:human_ai_metrics} reports Human--AI assurance metrics. Here the contrast between distance-threshold deferral and the current MAGD-Fraud configuration is especially clear. AI-only has overreliance of 1.0 and correct rejection of 0.0 by definition. Distance-threshold deferral substantially improves this pattern, reducing overreliance to 0.3523 and increasing correct rejection to 0.6477, while also achieving wrong-confident avoidance of 0.6371.
+
+By contrast, the current MAGD-Fraud configuration has overreliance of 0.9986, correct rejection of 0.0014, and wrong-confident avoidance of 0.0. This confirms that the present policy is routing almost all AI-wrong cases back to AI. In other words, the architecture is producing auditable signals, but the current policy weights and thresholds are not converting those signals into meaningful intervention.
+
+\paragraph{Suggested interpretation.}
+``The assurance metrics reveal a failure mode that standard predictive metrics alone would obscure. Although MAGD-Fraud is designed to detect and manage wrong-confident AI behavior, the current configuration leaves routing behavior nearly unchanged from AI-only, leading to near-maximal overreliance. This result underscores the value of reporting reliance-oriented metrics rather than accuracy or F1 alone.''
+
+\subsection{Ablation Study}
+\label{subsec:results_ablation}
+
+Table~\ref{tab:ablation} evaluates whether MAGD-Fraud is more than distance uncertainty alone. The ablations show that the \emph{distance-only} variant currently provides the best cost-sensitive trade-off among the tested MAGD-style variants, with cost-sensitive loss of 1111.668, overreliance of 0.0076, correct rejection of 0.0071, and AI coverage of 0.5789. Adding wrong-confident risk still performs reasonably well relative to the other multi-signal variants, but the full MAGD variants perform substantially worse on cost-sensitive loss and overreliance in the present run.
+
+In particular, full MAGD yields cost-sensitive loss of 1374.192 and overreliance of 0.0147, both worse than distance-only. Adding capacity and fairness penalties does not change the result under the current configuration, which is consistent with the fact that explicit capacity is not configured in this run.
+
+\paragraph{Current-results paragraph.}
+``The ablation study provides the clearest evidence that the present multi-evidence policy is not yet extracting value from all of its added signals. Distance-only uncertainty remains the strongest ablation in the current run, while the full MAGD variants collapse toward near-complete AI coverage and correspondingly poor reliance behavior. This is a negative but informative result: it shows that richer assurance features do not automatically improve routing unless the policy meaningfully acts on them.''
+
+\paragraph{Use if you want a stronger discussion tone.}
+``A central lesson of the current ablation study is that assurance signal richness and routing quality are separable. The architecture successfully computes local reliability, wrong-confident risk, and composite MAGD risk, but the present routing configuration is too weakly coupled to these signals to outperform distance-only deferral. This makes the current version better interpreted as a strong assurance prototype than as a final dominant policy.''
+
+\subsection{Auditability}
+\label{subsec:results_auditability}
+
+Table~\ref{tab:auditability} shows that the current implementation achieves complete audit coverage across all reported methods. For MAGD-Fraud, audit coverage is 1.0, evidence completeness is 1.0, and the missing-rationale and missing-risk-signal rates are both 0.0.
+
+This is a strong result for the engineering contribution even though the decision policy itself is not yet empirically dominant. The system is able to record, for each routed case, the key assurance evidence, selected route, and decision rationale in a structured way.
+
+\paragraph{Suggested interpretation.}
+``The current implementation is strongest as an assurance and audit prototype. Even where routing performance remains suboptimal, the pipeline produces complete evidence trails and explicit decision rationales, which are often absent from simpler threshold baselines.''
+
+\subsection{Statistical Comparisons}
+\label{subsec:results_statistical_tests}
+
+Table~\ref{tab:statistical_comparison} reports paired statistical comparisons. The current results support three main conclusions.
+
+First, distance-only differs significantly from AI-only in paired correctness and improves both cost-sensitive loss and overreliance, with bootstrap confidence intervals excluding zero. Second, full MAGD performs significantly worse than distance-only on the same quantities in the present run, again with confidence intervals excluding zero. Third, the comparison between learning-to-defer and full MAGD does not show a statistically significant difference under the current configuration.
+
+The comparison between full MAGD without capacity and full MAGD with capacity is null across all tested metrics, which is expected because capacity is not configured in this run. This null result should be reported directly rather than over-interpreted.
+
+\paragraph{Suggested interpretation.}
+``The statistical tests reinforce the descriptive findings. Distance-only provides a real paired improvement over AI-only, whereas the current full MAGD configuration does not provide a paired improvement over distance-only. Capacity-aware MAGD variants are indistinguishable from non-capacity variants in the present setup, which is consistent with the absence of configured capacity constraints.''
+
+\subsection{What the Current Results Support}
+\label{subsec:results_claims_supported}
+
+The current tables support several claims that are worth making explicitly:
+\begin{itemize}
+\item Multi-evidence assurance features can be computed in a leakage-safe and fully auditable way.
+\item Distance-only uncertainty is a strong baseline for this fraud-review setting and should not be treated as a weak comparator.
+\item The present MAGD policy configuration does not yet outperform the strongest threshold baseline on cost-sensitive loss or reliance behavior.
+\item Auditability and methodological discipline are stronger than raw routing performance in the current version.
+\end{itemize}
+
+These claims are narrower than a ``MAGD outperforms everything'' narrative, but they are more scientifically defensible and better aligned with the actual outputs.
+
+\subsection{Recommended Framing for the Discussion Section}
+\label{subsec:results_discussion_bridge}
+
+If you want to transition from results into discussion, the following paragraph is appropriate:
+
+``Overall, the current findings suggest that the main value of MAGD-Fraud is architectural rather than yet fully policy-optimal. The system successfully integrates multiple deployable assurance signals, preserves leakage boundaries, supports auditable routing, and provides a basis for stronger Human--AI evaluation than confidence-only baselines. However, the present learned and constrained policies remain too close to AI-only in their routing behavior. This indicates that future work should focus less on adding new signals and more on improving how multi-evidence assurance signals are translated into actual intervention decisions.''
+
+\subsection{Drop-in Placeholder Sentences for Updated Runs}
+\label{subsec:results_placeholders}
+
+If you rerun the pipeline and the values change, these sentence templates can be edited quickly:
+
+\begin{itemize}
+\item ``MAGD-Fraud achieved precision of \texttt{X}, recall of \texttt{Y}, F1 of \texttt{Z}, and cost-sensitive loss of \texttt{L}, compared with \texttt{baseline} at \texttt{...}.'' 
+\item ``Relative to distance-threshold deferral, MAGD-Fraud \texttt{improved / worsened} overreliance by \texttt{...} and correct rejection by \texttt{...}.'' 
+\item ``The ablation study showed that \texttt{variant} was the strongest configuration under the current run, indicating that \texttt{interpretation}.'' 
+\item ``Audit coverage for MAGD-Fraud was \texttt{...}, with evidence completeness of \texttt{...} and missing rationale rate of \texttt{...}.'' 
+\item ``Bootstrap confidence intervals for the difference in \texttt{metric} between \texttt{method A} and \texttt{method B} \texttt{did / did not} exclude zero, indicating \texttt{interpretation}.'' 
+\end{itemize}

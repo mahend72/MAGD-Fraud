@@ -1,0 +1,285 @@
+{
+  "config_path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/config.yaml",
+  "project_root": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar",
+  "outputs_root": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs",
+  "status": "passed",
+  "critical_failures": [],
+  "warnings": [],
+  "checks": [
+    {
+      "name": "deployable_y_true_guard",
+      "severity": "critical",
+      "passed": true,
+      "message": "Deployable routing and deployable risk code do not reference `y_true` inside decision logic.",
+      "evidence": {
+        "inspected_functions": [
+          "_ai_expected_cost",
+          "_expert_expected_cost",
+          "compute_deployable_wrong_confident_risk",
+          "route_cases",
+          "route_magd_cases"
+        ]
+      }
+    },
+    {
+      "name": "oracle_upper_bound_only",
+      "severity": "critical",
+      "passed": true,
+      "message": "Oracle is restricted to the upper-bound baseline only.",
+      "evidence": {
+        "oracle_baseline_exists": true,
+        "deployable_oracle_outputs": [],
+        "deployable_decision_logs_with_oracle": []
+      }
+    },
+    {
+      "name": "accuracy_not_headline_metric",
+      "severity": "critical",
+      "passed": true,
+      "message": "Accuracy is not treated as the headline metric.",
+      "evidence": {
+        "accuracy_columns": []
+      }
+    },
+    {
+      "name": "cost_sensitive_loss_reported",
+      "severity": "critical",
+      "passed": true,
+      "message": "`cost_sensitive_loss` is reported in `all_method_metrics.csv`.",
+      "evidence": {
+        "source_file": "all_method_metrics.csv",
+        "column": "cost_sensitive_loss"
+      }
+    },
+    {
+      "name": "overreliance_reported",
+      "severity": "critical",
+      "passed": true,
+      "message": "`overreliance` is reported in `reliance_metrics.csv`.",
+      "evidence": {
+        "source_file": "reliance_metrics.csv",
+        "column": "overreliance"
+      }
+    },
+    {
+      "name": "correct_rejection_reported",
+      "severity": "critical",
+      "passed": true,
+      "message": "`correct_rejection` is reported in `reliance_metrics.csv`.",
+      "evidence": {
+        "source_file": "reliance_metrics.csv",
+        "column": "correct_rejection"
+      }
+    },
+    {
+      "name": "wrong_confident_avoidance_reported",
+      "severity": "critical",
+      "passed": true,
+      "message": "`wrong_confident_avoidance_rate` is reported in `reliance_metrics.csv`.",
+      "evidence": {
+        "source_file": "reliance_metrics.csv",
+        "column": "wrong_confident_avoidance_rate"
+      }
+    },
+    {
+      "name": "audit_coverage_reported",
+      "severity": "critical",
+      "passed": true,
+      "message": "`audit_coverage` is reported in `audit_metrics.csv`.",
+      "evidence": {
+        "source_file": "audit_metrics.csv",
+        "column": "audit_coverage"
+      }
+    },
+    {
+      "name": "synthetic_experts_labelled",
+      "severity": "critical",
+      "passed": true,
+      "message": "README labels FiFAR experts as synthetic.",
+      "evidence": {
+        "mentions_synthetic": true,
+        "wrongly_claims_real": false
+      }
+    },
+    {
+      "name": "dashboard_labelled_prototype",
+      "severity": "critical",
+      "passed": true,
+      "message": "README and dashboard label the interface as a research prototype.",
+      "evidence": {
+        "readme_mentions_prototype": true,
+        "dashboard_mentions_prototype": true,
+        "invalid_validation_claim": false
+      }
+    },
+    {
+      "name": "optional_signals_logged_when_missing",
+      "severity": "warning",
+      "passed": true,
+      "message": "Optional capacity/fairness/drift/business signals are explicitly logged as unavailable when missing.",
+      "evidence": {
+        "warnings": [],
+        "drift_risk_configured": false,
+        "business_risk_configured": false
+      }
+    },
+    {
+      "name": "intervention_calibrated_diagnostics_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "Intervention-calibrated MAGD-Constrained diagnostics are present.",
+      "evidence": {
+        "diagnostics_path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/magd_policy/constrained_policy_diagnostics.json",
+        "results_path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/intervention_calibrated_results.csv",
+        "diagnostic_keys": [
+          "feasible_found",
+          "initial_validation_metrics",
+          "optimizer",
+          "selected_constraint_status",
+          "selected_params",
+          "selected_validation_metrics",
+          "test_metrics",
+          "used_validation_only",
+          "validation_rows"
+        ]
+      }
+    },
+    {
+      "name": "required_budget_matched_results_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "budget_matched_results.csv is present, non-empty, and schema-valid.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/budget_matched_results.csv",
+        "rows": 20,
+        "columns": [
+          "method",
+          "budget",
+          "threshold",
+          "recall",
+          "precision",
+          "f1",
+          "cost_loss",
+          "ai_coverage",
+          "human_deferral",
+          "wca",
+          "correct_rejection",
+          "overreliance",
+          "actual_budget_gap",
+          "validation_deferral",
+          "validation_budget_gap",
+          "coverage_sum"
+        ],
+        "observed_budgets": [
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "max_coverage_sum_gap": 2.220446049250313e-16
+      }
+    },
+    {
+      "name": "required_magd_risk_calibration_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "magd_risk_calibration.csv is present, non-empty, and schema-valid.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/magd_risk_calibration.csv",
+        "rows": 4,
+        "columns": [
+          "risk_bin",
+          "cases",
+          "fraud_prevalence",
+          "ai_error",
+          "wc_error",
+          "deferral"
+        ]
+      }
+    },
+    {
+      "name": "required_constraint_sensitivity_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "constraint_sensitivity.csv is present, non-empty, and schema-valid.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/constraint_sensitivity.csv",
+        "rows": 4,
+        "columns": [
+          "setting",
+          "deferral_budget",
+          "wca_target",
+          "overreliance_bound",
+          "feasible",
+          "recall",
+          "precision",
+          "f1",
+          "cost_loss",
+          "wca",
+          "correct_rejection",
+          "overreliance",
+          "human_deferral",
+          "ai_coverage"
+        ]
+      }
+    },
+    {
+      "name": "required_statistical_tests_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "statistical_tests.csv is present, non-empty, and schema-valid.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/statistical_tests.csv",
+        "rows": 2,
+        "columns": [
+          "comparison",
+          "delta_f1",
+          "delta_f1_ci_low",
+          "delta_f1_ci_high",
+          "delta_cost",
+          "delta_cost_ci_low",
+          "delta_cost_ci_high",
+          "mcnemar_p",
+          "n_bootstrap"
+        ]
+      }
+    },
+    {
+      "name": "required_magd_risk_calibration_thresholds_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "magd_risk_calibration_thresholds.json is present and non-empty.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/magd_risk_calibration_thresholds.json"
+      }
+    },
+    {
+      "name": "required_constraint_sensitivity_diagnostics_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "constraint_sensitivity_diagnostics.json is present and non-empty.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/magd_policy/constraint_sensitivity_diagnostics.json"
+      }
+    },
+    {
+      "name": "required_artifact_table_map_present",
+      "severity": "critical",
+      "passed": true,
+      "message": "artifact_table_map.csv is present and non-empty.",
+      "evidence": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/artifact_table_map.csv"
+      }
+    },
+    {
+      "name": "paper_table_placeholder_strings_absent",
+      "severity": "critical",
+      "passed": true,
+      "message": "No paper-table CSV contains placeholder string `--`.",
+      "evidence": {
+        "placeholder_files": []
+      }
+    }
+  ]
+}

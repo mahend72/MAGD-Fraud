@@ -1,0 +1,46 @@
+{
+  "run_id": "2026-08-17T18:52:21.865785+00:00",
+  "dataset_fingerprint": {
+    "processed_dir": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed",
+    "row_counts": {
+      "train": 278627,
+      "val": 119323,
+      "test": 96843
+    },
+    "seed": 42,
+    "magd_mode": "constrained"
+  },
+  "heuristic": {
+    "optimizer": "config",
+    "used_validation_only": true,
+    "validation_rows": 250.0,
+    "cost_sensitive_loss": 3.0,
+    "overreliance": 0.012,
+    "correct_rejection": 0.0,
+    "capacity_violation_rate": 0.0,
+    "fairness_penalty": 0.0,
+    "audit_coverage": 1.0
+  },
+  "learned": {
+    "optimizer": "scipy_slsqp",
+    "used_validation_only": true,
+    "validation_rows": 250.0,
+    "cost_sensitive_loss": 3.0,
+    "overreliance": 0.012,
+    "correct_rejection": 0.0,
+    "capacity_violation_rate": 0.0,
+    "fairness_penalty": 0.0,
+    "audit_coverage": 1.0
+  },
+  "constrained": {
+    "optimizer": "scipy_slsqp",
+    "used_validation_only": true,
+    "validation_rows": 250.0,
+    "cost_sensitive_loss": 3.0,
+    "overreliance": 0.012,
+    "correct_rejection": 0.0,
+    "capacity_violation_rate": 0.0,
+    "fairness_penalty": 0.0,
+    "audit_coverage": 1.0
+  }
+}

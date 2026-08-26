@@ -1,0 +1,61 @@
+\section{Related Work}
+\label{sec:related_work}
+
+MAGD-Fraud sits at the intersection of research on uncertainty-aware prediction, selective prediction and deferral, Human--AI decision making, and algorithmic auditing for high-stakes domains. We briefly situate our work relative to these strands.
+
+\subsection{Uncertainty and Confidence in Machine Learning}
+\label{subsec:rw_uncertainty}
+
+Many machine learning systems rely on model confidence or uncertainty to decide when predictions should be trusted. A common approach is to use score-based confidence, such as the maximum predicted class probability, and reject or defer cases with low confidence. A related line of work studies calibration, asking whether model confidence is statistically aligned with empirical accuracy. These methods are useful, but they are often insufficient in practice for high-stakes review settings because a model can still be confidently wrong, and globally calibrated systems can fail on specific local patterns or operational subpopulations.
+
+Our work builds on this literature but takes a broader assurance perspective. Rather than relying on a single confidence quantity, MAGD-Fraud combines score-based confidence, calibration risk, embedding-based uncertainty, local historical reliability, and wrong-confident risk into a unified routing score. In that sense, MAGD-Fraud is closer to a structured assurance layer than to a standard confidence-thresholding method.
+
+\subsection{Distance-Based and Representation-Based Uncertainty}
+\label{subsec:rw_distance}
+
+Another line of work estimates uncertainty by measuring whether a test point lies far from known training regions in feature or representation space. Distance-to-centroid or nearest-neighbor style methods are appealing because they provide a geometric notion of familiarity. However, these methods often assume that class structure is relatively clean globally, which can be problematic in fraud settings where positive cases are rare, overlapping, and multimodal.
+
+MAGD-Fraud directly addresses this limitation. We retain distance-based uncertainty as one component, but we add local neighbourhood reliability so that routing is informed not only by global geometry but also by whether similar historical cases were model-reliable or model-error-prone. This distinction is central to our contribution: we do not argue that distance uncertainty is unhelpful, but that it is incomplete for fraud review when used alone.
+
+\subsection{Selective Prediction and Learning to Defer}
+\label{subsec:rw_deferral}
+
+Selective prediction and learning-to-defer methods study when a model should abstain or defer to a human or auxiliary decision maker. These approaches are highly relevant to Human--AI oversight because they move beyond pure prediction and focus on the decision of \emph{who should act}. Existing formulations often optimize predictive utility, triage accuracy, or task loss under an abstention mechanism.
+
+MAGD-Fraud is closely related to this literature, but differs in two ways. First, it is explicitly \emph{multi-evidence}: the routing policy is driven by a structured set of assurance signals rather than only by the model score or by a learned rejector over generic features. Second, MAGD-Fraud includes an explicitly constrained policy variant that penalizes overreliance, capacity violations, fairness penalties, and audit gaps. In this sense, we treat deferral not just as a predictive optimization problem but as an \emph{assurance-constrained routing problem}.
+
+We also include a learning-to-defer baseline in the repository to provide a stronger comparison against purely heuristic threshold methods.
+
+\subsection{Human--AI Decision Making and Reliance}
+\label{subsec:rw_reliance}
+
+Human--AI decision-making research has emphasized that human oversight is not automatically beneficial. Humans may over-trust, under-trust, or inconsistently respond to model outputs, and the design of reliance mechanisms can strongly affect outcomes. This literature motivates metrics such as overreliance, underreliance, and correct rejection, which aim to distinguish between merely accurate systems and systems that support safer Human--AI interaction.
+
+MAGD-Fraud adopts this perspective directly. Rather than treating accuracy as the main target, we emphasize assurance-oriented outcomes such as wrong-confident avoidance, correct rejection, overreliance, audit coverage, and cost-sensitive loss. This framing is especially important in fraud review, where a low average error rate is not sufficient if the system still routes especially dangerous wrong-but-confident cases to AI.
+
+\subsection{Fairness, Capacity, and Operational Constraints}
+\label{subsec:rw_constraints}
+
+Research on algorithmic decision support increasingly recognizes that operational settings include fairness constraints, limited reviewer capacity, asymmetric error costs, and institutional audit requirements. In many benchmark studies, however, these considerations are handled separately from the main predictive or uncertainty model.
+
+MAGD-Fraud incorporates these concerns directly into routing. The constrained policy variant penalizes capacity violations, fairness penalties, and audit gaps, while expert-aware routing explicitly models synthetic expert reliability, bias risk, and availability. We do not claim that this fully resolves organizational deployment concerns, but we do argue that routing policies for high-stakes review are better studied when these constraints are part of the method rather than afterthoughts in evaluation.
+
+\subsection{Algorithmic Auditing and Assurance Cases}
+\label{subsec:rw_audit}
+
+There is growing interest in audit-oriented evaluation, assurance cases, and documentation practices for high-stakes AI systems. Such work emphasizes that responsible deployment requires more than predictive accuracy: it also requires traceable evidence, clear decision rationales, and explicit claims about what the system can and cannot justify.
+
+MAGD-Fraud is aligned with this view. In addition to routing decisions, the repository produces a claim--evidence matrix, audit coverage metrics, decision rationales, and paper-facing summary tables. We position these outputs not as proof of deployment readiness, but as computational artifacts that help connect model evidence to routing decisions in a more transparent way.
+
+\subsection{Positioning of MAGD-Fraud}
+\label{subsec:rw_positioning}
+
+Taken together, MAGD-Fraud can be viewed as a bridge between several literatures:
+\begin{itemize}
+\item from uncertainty estimation, it takes confidence, calibration, and representation-space familiarity;
+\item from selective prediction and learning to defer, it takes the routing problem formulation;
+\item from Human--AI decision making, it takes overreliance and correct-rejection concerns seriously;
+\item from fairness and audit research, it takes operational constraints and evidentiary traceability as first-class design requirements.
+\end{itemize}
+
+The closest conceptual comparison is to distance-based or confidence-based deferral. Our main distinction is that MAGD-Fraud does not treat any single signal as sufficient. Instead, it frames fraud-review routing as a \emph{multi-evidence assurance-guided decision problem} with explicit leakage boundaries, operational constraints, and audit outputs.

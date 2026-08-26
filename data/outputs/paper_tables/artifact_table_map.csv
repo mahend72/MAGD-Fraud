@@ -1,0 +1,5 @@
+paper_table_or_figure,source_csv,description
+budget-matched table/figure,budget_matched_results.csv,Budget-matched deferral comparison across MAGD-Fraud and baseline routing scores.
+MAGD risk calibration table/figure,magd_risk_calibration.csv,"Held-out test MAGD risk quartiles with fraud prevalence, AI error, wrong-confident error, and MAGD deferral."
+constraint sensitivity table/figure,constraint_sensitivity.csv,"Validation-selected MAGD risk thresholds under strict, moderate, relaxed, and high-review constraints."
+statistical comparison table,statistical_tests.csv,Paired bootstrap confidence intervals and McNemar tests over held-out test cases.

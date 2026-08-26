@@ -1,0 +1,6 @@
+method,correct_reliance,correct_rejection,overreliance,underreliance,correct_rejection_all_cases,overreliance_all_cases,correct_rejection_given_ai_wrong,overreliance_given_ai_wrong,wrong_confident_avoidance_rate
+AI-only,0.985316,0.0,0.014684,0.0,0.0,0.014684,0.0,1.0,0.0
+L2D-Standard,0.954091,0.006227,0.008457,0.031226,0.006227,0.008457,0.424051,0.575949,0.147028
+MAGD-v1-Heuristic,0.792664,0.003005,0.011679,0.192652,0.003005,0.011679,0.204641,0.795359,0.217935
+MAGD-v1-ValidationTuned,0.966255,0.000423,0.01426,0.019062,0.000423,0.01426,0.028833,0.971167,0.015641
+MAGD-v2,0.840649,0.00696,0.007724,0.144667,0.00696,0.007724,0.47398,0.52602,0.220021

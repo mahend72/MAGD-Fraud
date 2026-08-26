@@ -1,0 +1,3 @@
+| method | cases | audit_coverage | evidence_completeness | complete_decision_logs_rate | missing_evidence_rate | missing_rationale_rate | mean_claim_coverage | claims_with_example_cases |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| magd_constrained_calibrated | 96843 | 1.0 | 1.0 | 1.0 | 0.0 | 0.0 | 1.0 | 7 |

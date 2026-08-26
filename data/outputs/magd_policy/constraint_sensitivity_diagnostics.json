@@ -1,0 +1,78 @@
+[
+  {
+    "setting": "Strict",
+    "deferral_budget": 0.01,
+    "wca_target": 0.5,
+    "overreliance_bound": 0.5,
+    "optimizer_status": "infeasible_best_available",
+    "reason": "No validation threshold satisfied all sensitivity constraints.",
+    "selected_threshold": 0.19066654197889651,
+    "actual_validation_deferral": 0.2402051574298333,
+    "actual_test_deferral": 0.4351269580661483,
+    "constraint_satisfaction": {
+      "validation_budget_satisfied": false,
+      "validation_wca_satisfied": false,
+      "validation_overreliance_satisfied": true,
+      "test_budget_satisfied": false,
+      "test_wca_satisfied": false,
+      "test_overreliance_satisfied": true
+    }
+  },
+  {
+    "setting": "Moderate",
+    "deferral_budget": 0.05,
+    "wca_target": 0.3,
+    "overreliance_bound": 0.7,
+    "optimizer_status": "infeasible_best_available",
+    "reason": "No validation threshold satisfied all sensitivity constraints.",
+    "selected_threshold": 0.19066654197889651,
+    "actual_validation_deferral": 0.2402051574298333,
+    "actual_test_deferral": 0.4351269580661483,
+    "constraint_satisfaction": {
+      "validation_budget_satisfied": false,
+      "validation_wca_satisfied": false,
+      "validation_overreliance_satisfied": true,
+      "test_budget_satisfied": false,
+      "test_wca_satisfied": true,
+      "test_overreliance_satisfied": true
+    }
+  },
+  {
+    "setting": "Relaxed",
+    "deferral_budget": 0.1,
+    "wca_target": 0.2,
+    "overreliance_bound": 0.8,
+    "optimizer_status": "infeasible_best_available",
+    "reason": "No validation threshold satisfied all sensitivity constraints.",
+    "selected_threshold": 0.2212529260793714,
+    "actual_validation_deferral": 0.11280306395246516,
+    "actual_test_deferral": 0.21052631578947367,
+    "constraint_satisfaction": {
+      "validation_budget_satisfied": false,
+      "validation_wca_satisfied": false,
+      "validation_overreliance_satisfied": true,
+      "test_budget_satisfied": false,
+      "test_wca_satisfied": true,
+      "test_overreliance_satisfied": true
+    }
+  },
+  {
+    "setting": "High-review",
+    "deferral_budget": 0.2,
+    "wca_target": 0.2,
+    "overreliance_bound": 0.85,
+    "optimizer_status": "infeasible_best_available",
+    "reason": "No validation threshold satisfied all sensitivity constraints.",
+    "selected_threshold": 0.1978262031589758,
+    "actual_validation_deferral": 0.21080596364489662,
+    "actual_test_deferral": 0.3718389558357341,
+    "constraint_satisfaction": {
+      "validation_budget_satisfied": false,
+      "validation_wca_satisfied": false,
+      "validation_overreliance_satisfied": true,
+      "test_budget_satisfied": false,
+      "test_wca_satisfied": true,
+      "test_overreliance_satisfied": true
+    }
+  }
+]

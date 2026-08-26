@@ -1,0 +1,25 @@
+variant,assurance_representation,fold,n_inner_train,n_held_out,auroc,pr_auc
+calibration_risk_alone,Calibration risk only,0,95458.0,23865.0,0.6337357162344215,0.06084321132726394
+calibration_risk_alone,Calibration risk only,1,95458.0,23865.0,0.6534244822474492,0.08034770206338984
+calibration_risk_alone,Calibration risk only,2,95458.0,23865.0,0.6481479476591354,0.0923922267025119
+calibration_risk_alone,Calibration risk only,3,95459.0,23864.0,0.6497560797362576,0.0688049615583842
+calibration_risk_alone,Calibration risk only,4,95459.0,23864.0,0.6478424880217866,0.07140637064339093
+calibration_risk_alone,Calibration risk only,mean,,,0.6465813427798099,0.07475889445898817
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,0,95458.0,23865.0,0.665872151697031,0.09349830185336032
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,1,95458.0,23865.0,0.7008294271524937,0.09908140167448828
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,2,95458.0,23865.0,0.6783136999455371,0.1204652129443077
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,3,95459.0,23864.0,0.6716546187710184,0.07888770433016713
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,4,95459.0,23864.0,0.647743043687752,0.08457648938031466
+distance_calibration_neighbourhood_main_effects,Normalized distance + calibration + neighbourhood main effects,mean,,,0.6728825882507665,0.09530182203652761
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,0,95458.0,23865.0,0.6753498209776095,0.12175219091144023
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,1,95458.0,23865.0,0.7137650925653196,0.13424055903979912
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,2,95458.0,23865.0,0.6874105129822149,0.13336675435792217
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,3,95459.0,23864.0,0.6797708584080537,0.10624932272216535
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,4,95459.0,23864.0,0.6568556305185758,0.12837315085936984
+base_risks_plus_revised_wrong_confident,Base risks + revised gated wrong-confident risk,mean,,,0.6826303830903547,0.12479639557813935
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),0,95458.0,23865.0,0.6760956973060932,0.11965829424997886
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),1,95458.0,23865.0,0.7141740193001347,0.13816357639902996
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),2,95458.0,23865.0,0.6886508883818522,0.1318395009656589
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),3,95459.0,23864.0,0.6812000046916419,0.11168676245013617
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),4,95459.0,23864.0,0.6584464380593837,0.13332234551581323
+full_interaction_model,Full interaction model (frozen MAGD-Fraud v2 scorer),mean,,,0.6837134095478211,0.12693409591612342

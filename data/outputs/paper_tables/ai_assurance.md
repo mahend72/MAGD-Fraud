@@ -1,0 +1,5 @@
+| split | pr_auc | f1 | expected_calibration_error | mean_numerical_confidence | mean_calibration_risk |
+| --- | --- | --- | --- | --- | --- |
+| test | 0.204 | 0.0718 | 0.0006 | 0.9879 | 0.0006 |
+| train | 0.1639 | 0.0899 | 0.0007 | 0.9864 | 0.0007 |
+| val | 0.1733 | 0.0651 | 0.0006 | 0.9888 | 0.0006 |

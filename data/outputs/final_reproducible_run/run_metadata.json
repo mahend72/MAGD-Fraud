@@ -1,0 +1,34 @@
+{
+  "generated_from": "scripts/run_full_magd_experiment.py -- ONE unbroken invocation, POST normalization fix (src/assurance/magd_risk.py::_magd_config)",
+  "normalization_fix": "Disabled drift_risk/business_risk weights now excluded from compute_magd_risk total_weight denominator in threshold-freezing (_magd_config), matching magd_policy.py._normalize_weights convention already used for routing. Verified by tests/test_magd_risk.py::test_threshold_freezing_and_routing_use_identical_active_signal_normalization and test_frozen_validation_quantile_thresholds_produce_intended_risk_proportions.",
+  "config_path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/config.yaml",
+  "dataset_summary": {
+    "total_cases": 494793,
+    "train_cases": 278627,
+    "validation_cases": 119323,
+    "test_cases": 96843,
+    "train_fraud_prevalence": 0.010207194564776565,
+    "validation_fraud_prevalence": 0.01182504630289215,
+    "test_fraud_prevalence": 0.014745515938167962,
+    "number_of_synthetic_experts": 51,
+    "sensitive_attribute_used": "customer_age",
+    "capacity_configured": "no"
+  },
+  "methods_run": [
+    "AI-only",
+    "best expert only",
+    "random expert",
+    "numerical threshold",
+    "distance threshold",
+    "oracle upper bound",
+    "learning-to-defer baseline",
+    "MAGD-Heuristic",
+    "MAGD-Learned",
+    "MAGD-Fraud-ValidationTuned",
+    "MAGD-Constrained"
+  ],
+  "seed": 42,
+  "scientific_checks_status": "passed",
+  "all_scientific_checks_passed": true,
+  "superseded_run": "data/outputs_archive_pre_repair/20260817T182727Z_pre-normalization-fix (DO NOT USE, see README_DO_NOT_USE.txt inside)"
+}

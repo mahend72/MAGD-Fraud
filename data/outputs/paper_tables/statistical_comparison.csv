@@ -1,0 +1,51 @@
+method_A,method_B,metric,test,statistic,p_value,ci_low,ci_high,interpretation
+AI-only,distance-threshold,correctness,mcnemar,0.0,1.0,NA,NA,No statistically significant paired correctness difference under McNemar.
+AI-only,distance-threshold,cost_sensitive_loss,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for cost_sensitive_loss difference crosses 0.
+AI-only,distance-threshold,cost_sensitive_loss,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in cost_sensitive_loss.
+AI-only,distance-threshold,f1,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for f1 difference crosses 0.
+AI-only,distance-threshold,overreliance,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for overreliance difference crosses 0.
+AI-only,distance-threshold,overreliance,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in overreliance.
+AI-only,distance-threshold,correct_rejection,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for correct_rejection difference crosses 0.
+AI-only,distance-threshold,correct_rejection,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in correct_rejection.
+AI-only,distance-threshold,wrong_confident_avoidance,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for wrong_confident_avoidance difference crosses 0.
+AI-only,distance-threshold,wrong_confident_avoidance,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in wrong_confident_avoidance.
+distance-threshold,MAGD-Constrained initial,correctness,mcnemar,25.3333,0.0,NA,NA,Paired correctness differs significantly; distance-threshold vs MAGD-Constrained initial is higher under McNemar.
+distance-threshold,MAGD-Constrained initial,cost_sensitive_loss,paired_bootstrap,47.487,NA,35.7136,61.487,distance-threshold has higher cost_sensitive_loss than MAGD-Constrained initial; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained initial,cost_sensitive_loss,wilcoxon_signed_rank,2342777764.5,0.8022,NA,NA,No statistically significant Wilcoxon difference in cost_sensitive_loss.
+distance-threshold,MAGD-Constrained initial,f1,paired_bootstrap,-0.0578,NA,-0.0736,-0.0438,distance-threshold has lower f1 than MAGD-Constrained initial; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained initial,overreliance,paired_bootstrap,0.001,NA,0.0008,0.0012,distance-threshold has higher overreliance than MAGD-Constrained initial; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained initial,overreliance,wilcoxon_signed_rank,2339777826.5,0.5167,NA,NA,No statistically significant Wilcoxon difference in overreliance.
+distance-threshold,MAGD-Constrained initial,correct_rejection,paired_bootstrap,-0.001,NA,-0.0012,-0.0008,distance-threshold has lower correct_rejection than MAGD-Constrained initial; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained initial,correct_rejection,wilcoxon_signed_rank,2339777826.5,0.5167,NA,NA,No statistically significant Wilcoxon difference in correct_rejection.
+distance-threshold,MAGD-Constrained initial,wrong_confident_avoidance,paired_bootstrap,-0.0008,NA,-0.001,-0.0006,distance-threshold has lower wrong_confident_avoidance than MAGD-Constrained initial; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained initial,wrong_confident_avoidance,wilcoxon_signed_rank,2340938880.5,0.621,NA,NA,No statistically significant Wilcoxon difference in wrong_confident_avoidance.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,correctness,mcnemar,0.0,1.0,NA,NA,No statistically significant paired correctness difference under McNemar.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for cost_sensitive_loss difference crosses 0.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in cost_sensitive_loss.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,f1,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for f1 difference crosses 0.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,overreliance,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for overreliance difference crosses 0.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,overreliance,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in overreliance.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,correct_rejection,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for correct_rejection difference crosses 0.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,correct_rejection,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in correct_rejection.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,paired_bootstrap,0.0,NA,0.0,0.0,Bootstrap CI for wrong_confident_avoidance difference crosses 0.
+MAGD-Constrained initial,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,wilcoxon_signed_rank,0.0,1.0,NA,NA,No statistically significant Wilcoxon difference in wrong_confident_avoidance.
+learning-to-defer,MAGD-Constrained intervention-calibrated,correctness,mcnemar,44.1636,0.0,NA,NA,Paired correctness differs significantly; learning-to-defer vs MAGD-Constrained intervention-calibrated is different under McNemar.
+learning-to-defer,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,paired_bootstrap,-245.585,NA,-279.1027,-209.5166,learning-to-defer has lower cost_sensitive_loss than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+learning-to-defer,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,wilcoxon_signed_rank,2337112849.0,0.3175,NA,NA,No statistically significant Wilcoxon difference in cost_sensitive_loss.
+learning-to-defer,MAGD-Constrained intervention-calibrated,f1,paired_bootstrap,0.2363,NA,0.204,0.2662,learning-to-defer has higher f1 than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+learning-to-defer,MAGD-Constrained intervention-calibrated,overreliance,paired_bootstrap,-0.0053,NA,-0.0058,-0.0048,learning-to-defer has lower overreliance than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+learning-to-defer,MAGD-Constrained intervention-calibrated,overreliance,wilcoxon_signed_rank,2319857534.5,0.001,NA,NA,Paired Wilcoxon test suggests a difference in overreliance between learning-to-defer and MAGD-Constrained intervention-calibrated.
+learning-to-defer,MAGD-Constrained intervention-calibrated,correct_rejection,paired_bootstrap,0.0053,NA,0.0048,0.0058,learning-to-defer has higher correct_rejection than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+learning-to-defer,MAGD-Constrained intervention-calibrated,correct_rejection,wilcoxon_signed_rank,2319857534.5,0.001,NA,NA,Paired Wilcoxon test suggests a difference in correct_rejection between learning-to-defer and MAGD-Constrained intervention-calibrated.
+learning-to-defer,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,paired_bootstrap,0.0008,NA,0.0005,0.0011,learning-to-defer has higher wrong_confident_avoidance than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+learning-to-defer,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,wilcoxon_signed_rank,2340989392.0,0.6259,NA,NA,No statistically significant Wilcoxon difference in wrong_confident_avoidance.
+distance-threshold,MAGD-Constrained intervention-calibrated,correctness,mcnemar,25.3333,0.0,NA,NA,Paired correctness differs significantly; distance-threshold vs MAGD-Constrained intervention-calibrated is higher under McNemar.
+distance-threshold,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,paired_bootstrap,47.487,NA,35.7136,61.487,distance-threshold has higher cost_sensitive_loss than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained intervention-calibrated,cost_sensitive_loss,wilcoxon_signed_rank,2342777764.5,0.8022,NA,NA,No statistically significant Wilcoxon difference in cost_sensitive_loss.
+distance-threshold,MAGD-Constrained intervention-calibrated,f1,paired_bootstrap,-0.0578,NA,-0.0736,-0.0438,distance-threshold has lower f1 than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained intervention-calibrated,overreliance,paired_bootstrap,0.001,NA,0.0008,0.0012,distance-threshold has higher overreliance than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained intervention-calibrated,overreliance,wilcoxon_signed_rank,2339777826.5,0.5167,NA,NA,No statistically significant Wilcoxon difference in overreliance.
+distance-threshold,MAGD-Constrained intervention-calibrated,correct_rejection,paired_bootstrap,-0.001,NA,-0.0012,-0.0008,distance-threshold has lower correct_rejection than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained intervention-calibrated,correct_rejection,wilcoxon_signed_rank,2339777826.5,0.5167,NA,NA,No statistically significant Wilcoxon difference in correct_rejection.
+distance-threshold,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,paired_bootstrap,-0.0008,NA,-0.001,-0.0006,distance-threshold has lower wrong_confident_avoidance than MAGD-Constrained intervention-calibrated; bootstrap CI excludes 0.
+distance-threshold,MAGD-Constrained intervention-calibrated,wrong_confident_avoidance,wilcoxon_signed_rank,2340938880.5,0.621,NA,NA,No statistically significant Wilcoxon difference in wrong_confident_avoidance.

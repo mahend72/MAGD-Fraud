@@ -1,0 +1,5 @@
+risk_bin,cases,fraud_prevalence,ai_error,wc_error,deferral
+Low,24211,0.0172,0.0171,0.0128,0.0
+Medium,24211,0.0129,0.0129,0.0105,0.0
+High,24210,0.0129,0.0129,0.0108,0.0
+Very high,24211,0.016,0.0159,0.0142,0.0779

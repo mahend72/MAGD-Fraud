@@ -1,0 +1,589 @@
+{
+  "manifest_version": "1.0",
+  "generated_at_utc": "2026-08-17T19:54:17.407007+00:00",
+  "generated_by": "scripts/freeze_experiment_setup.py (no methodology/config change; snapshot only)",
+  "config_path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/config.yaml",
+  "config_snapshot": {
+    "project": {
+      "name": "haaf_fifar"
+    },
+    "experiment": {
+      "seed": 42,
+      "output_dir": "data/outputs",
+      "use_existing_scores": true,
+      "test_labels_allowed_for_routing": false
+    },
+    "data": {
+      "dataset_name": "fifar",
+      "train_path": "data/processed/X_train.csv",
+      "val_path": "data/processed/X_val.csv",
+      "test_path": "data/processed/X_test.csv",
+      "y_train_path": "data/processed/y_train.csv",
+      "y_val_path": "data/processed/y_val.csv",
+      "y_test_path": "data/processed/y_test.csv",
+      "sensitive_attribute": "customer_age"
+    },
+    "model": {
+      "model_type": "xgboost",
+      "fallback_model": "random_forest",
+      "threshold": 0.5,
+      "false_positive_cost": 1.0,
+      "false_negative_cost": 5.0,
+      "xgboost": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "subsample": 0.9,
+        "colsample_bytree": 0.9,
+        "reg_lambda": 1.0,
+        "random_state": 42
+      },
+      "random_forest": {
+        "n_estimators": 300,
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "random_state": 42
+      }
+    },
+    "costs": {
+      "false_positive": 0.057,
+      "false_negative": 1.0,
+      "human_review": 0.05,
+      "escalation": 0.1
+    },
+    "assurance": {
+      "calibration_bins": 10,
+      "neighbor_top_k": 5,
+      "distance_embedding": {
+        "method": "pca",
+        "n_components": 8
+      },
+      "wrong_confident": {
+        "high_conf_threshold": 0.9,
+        "risk_alert_threshold": 0.7,
+        "top_k_fraction": 0.1,
+        "weights": {
+          "numerical_confidence": 0.25,
+          "distance_uncertainty": 0.2,
+          "calibration_risk": 0.2,
+          "neighbor_error_rate": 0.2,
+          "confidence_disagreement": 0.15
+        }
+      },
+      "distance_thresholds": [
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9
+      ],
+      "assurance_risk": {
+        "low_threshold": 0.33,
+        "high_threshold": 0.66,
+        "weights": {
+          "calibration_risk": 0.2,
+          "distance_uncertainty": 0.2,
+          "neighbor_error_rate": 0.2,
+          "wrong_confident_risk": 0.3,
+          "business_risk": 0.1
+        }
+      },
+      "n_bins_calibration": 10,
+      "embedding_method": "pca",
+      "pca_components": 20,
+      "knn_k": 25,
+      "high_confidence_threshold": 0.8
+    },
+    "intervention_constraints": {
+      "enabled": true,
+      "max_overreliance": 0.4,
+      "min_wrong_confident_avoidance": 0.6,
+      "min_deferral_rate": 0.05,
+      "max_deferral_rate": 0.4,
+      "min_audit_coverage": 0.95
+    },
+    "expert_routing": {
+      "top_k_for_escalation": 5,
+      "use_majority_vote_for_escalation": true,
+      "capacity_enabled": false,
+      "fairness_enabled": true,
+      "capacity_penalty_weight": 0.2,
+      "fairness_penalty_weight": 0.2
+    },
+    "statistics": {
+      "bootstrap_iterations": 1000,
+      "confidence_level": 0.95
+    },
+    "paths": {
+      "raw_data_dir": "data/raw",
+      "processed_data_dir": "data/processed",
+      "outputs_dir": "data/outputs"
+    },
+    "dataset": {
+      "main_file": null,
+      "train_file": "data/ICAIF_KAGGLE/testbed/train/small__regular/train.csv",
+      "test_file": "data/ICAIF_KAGGLE/testbed/test/test.csv",
+      "expert_predictions_file": "data/ICAIF_KAGGLE/testbed/test/test_expert_pred.csv",
+      "historical_expert_predictions_file": "data/ICAIF_KAGGLE/experts/train_predictions.csv",
+      "capacity_file": null,
+      "file_patterns": [
+        "*.csv",
+        "*.parquet",
+        "*.tsv",
+        "*.xlsx",
+        "*.xls",
+        "*.json"
+      ]
+    },
+    "columns": {
+      "case_id": "case_id",
+      "application_id": null,
+      "batch_id": "batch",
+      "time": "month",
+      "label": "fraud_label",
+      "train_label": "fraud_bool",
+      "test_label": "fraud_label",
+      "prediction": null,
+      "model_score": "model_score",
+      "expert_case_id": "case_id",
+      "expert_prediction": "sparse#7",
+      "capacity_case_id": null,
+      "capacity": null,
+      "sensitive_attributes": [
+        "customer_age"
+      ]
+    },
+    "split": {
+      "train_size": 0.7,
+      "val_size": 0.15,
+      "test_size": 0.15,
+      "random_state": 42,
+      "stratify": true
+    },
+    "baselines": {
+      "numerical_conf_threshold": 0.9,
+      "distance_conf_threshold": 0.7,
+      "random_state": 42
+    },
+    "assurance_deferral": {
+      "escalation_top_k_experts": 5,
+      "assurance_risk_penalty": 1.0,
+      "bias_penalty_weight": 1.0,
+      "capacity_penalty_weight": 0.2
+    },
+    "inspection": {
+      "max_rows_preview": 5,
+      "max_candidate_columns_per_group": 10
+    },
+    "magd": {
+      "mode": "constrained",
+      "signals": {
+        "use_distance_uncertainty": true,
+        "use_calibration_risk": true,
+        "use_neighbor_error_rate": true,
+        "use_wrong_confident_risk": true,
+        "use_drift_risk": false,
+        "use_business_risk": false,
+        "use_capacity_penalty": false,
+        "use_fairness_penalty": true
+      },
+      "risk_weights": {
+        "distance_uncertainty": 0.25,
+        "calibration_risk": 0.2,
+        "neighbor_error_rate": 0.2,
+        "wrong_confident_risk": 0.25,
+        "drift_risk": 0.05,
+        "business_risk": 0.05
+      },
+      "thresholds": {
+        "mode": "validation_quantile",
+        "low_quantile": 0.6,
+        "high_quantile": 0.9,
+        "low_risk": 0.35,
+        "high_risk": 0.7,
+        "high_confidence": 0.8,
+        "wrong_confident": 0.7
+      },
+      "adaptive_threshold": {
+        "enabled": true,
+        "base_threshold": 0.5,
+        "business_risk_weight": 0.1,
+        "fairness_risk_weight": 0.1,
+        "capacity_pressure_weight": 0.1,
+        "value_weight": 0.1,
+        "fairness_weight": 0.1,
+        "capacity_weight": 0.1
+      },
+      "constrained_policy": {
+        "enabled": true,
+        "lambda_overreliance": 1.0,
+        "lambda_capacity": 0.5,
+        "lambda_fairness": 0.5,
+        "lambda_audit": 0.25,
+        "min_correct_rejection": 0.6,
+        "min_audit_coverage": 0.95,
+        "max_overreliance": 0.4,
+        "min_wrong_confident_avoidance": 0.6,
+        "min_deferral_rate": 0.05,
+        "max_deferral_rate": 0.4
+      },
+      "validation_tuned": {
+        "enabled": true,
+        "deferral_budgets": [
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "objective": "cost_recall_f1",
+        "lambda_deferral": 0.02,
+        "lambda_recall": 0.05,
+        "lambda_f1": 0.05,
+        "min_deferral_rate": 0.0,
+        "max_validation_rows": null
+      },
+      "expert_routing": {
+        "top_k_for_escalation": 5,
+        "capacity_enabled": false,
+        "fairness_enabled": true,
+        "capacity_penalty_weight": 0.2,
+        "fairness_penalty_weight": 0.2,
+        "use_majority_vote_for_escalation": true
+      },
+      "costs": {
+        "false_positive": 0.057,
+        "false_negative": 1.0,
+        "escalation": 0.1,
+        "human_review": 0.05
+      },
+      "use_distance_uncertainty": true,
+      "use_calibration_risk": true,
+      "use_neighbor_error_rate": true,
+      "use_wrong_confident_risk": true,
+      "use_drift_risk": false,
+      "use_business_risk": false,
+      "weights": {
+        "distance_uncertainty": 0.25,
+        "calibration_risk": 0.2,
+        "neighbor_error_rate": 0.2,
+        "wrong_confident_risk": 0.25,
+        "drift_risk": 0.05,
+        "business_risk": 0.05
+      },
+      "use_capacity_penalty": false,
+      "use_fairness_penalty": true,
+      "use_neighbor_error": true,
+      "use_expert_reliability": true
+    }
+  },
+  "dataset_provenance": {
+    "raw_source_files": {
+      "capacity_file": {
+        "path": null,
+        "exists": false
+      },
+      "expert_predictions_file": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/ICAIF_KAGGLE/testbed/test/test_expert_pred.csv",
+        "exists": true,
+        "sha256": "cf018475d5bcf8e1463f2deffe7152b01f48b9376697707db977a71034524f7b",
+        "size_bytes": 12422687
+      },
+      "historical_expert_predictions_file": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/ICAIF_KAGGLE/experts/train_predictions.csv",
+        "exists": true,
+        "sha256": "8632095d15d977cb8ea93bd7c1dfb72269751ca2899ea09bfb538aac166235de",
+        "size_bytes": 50834461
+      },
+      "test_file": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/ICAIF_KAGGLE/testbed/test/test.csv",
+        "exists": true,
+        "sha256": "5b983a0c0dd0d7e913475d7f653a0e67e891665dc1daa47fa37d671e73a960f6",
+        "size_bytes": 23404793
+      },
+      "train_file": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/ICAIF_KAGGLE/testbed/train/small__regular/train.csv",
+        "exists": true,
+        "sha256": "39252b02903b9f30327f300d3147eb0f07a4d25d00a5e0aeab69a34c3d590545",
+        "size_bytes": 135633125
+      }
+    },
+    "processed_split_files": {
+      "X_train.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/X_train.csv",
+        "exists": true,
+        "sha256": "9b5ee2018a8516ad476828edc0e3e0b1ac7695b9651bf056fe7861147317fb0b",
+        "size_bytes": 197269577
+      },
+      "y_train.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/y_train.csv",
+        "exists": true,
+        "sha256": "893e2f8310014c7bd2a33920c410750336a7fb3e1bdcc9d003124a3e772c8817",
+        "size_bytes": 557266
+      },
+      "train_metadata.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/train_metadata.csv",
+        "exists": true,
+        "sha256": "f170f30cf16bac6148229a47200eaa08111a72bbeac755813dca26fb41c575d4",
+        "size_bytes": 10170111
+      },
+      "X_val.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/X_val.csv",
+        "exists": true,
+        "sha256": "7a60415ef32f0232eb540b96fa794f829d436c4ebb4a97aac2f384693b2dda06",
+        "size_bytes": 84519113
+      },
+      "y_val.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/y_val.csv",
+        "exists": true,
+        "sha256": "24f5b4debdb428dce1c3005f77bafa305bccf92504e8042e58dd4350b1a305df",
+        "size_bytes": 238658
+      },
+      "val_metadata.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/val_metadata.csv",
+        "exists": true,
+        "sha256": "18526de8ac7d7d445e272e48033d92555c3375e60e2234e87d8526a7a028b539",
+        "size_bytes": 4401580
+      },
+      "X_test.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/X_test.csv",
+        "exists": true,
+        "sha256": "54ec3b80966613b1b4aedaaf8bfd872cdaefd4bfd6319b45af07c9650bf5922f",
+        "size_bytes": 67263246
+      },
+      "y_test.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/y_test.csv",
+        "exists": true,
+        "sha256": "ad6de0df669816fb33b644b13a978f7ddd1d4ff1780ce4bf776f39318135018e",
+        "size_bytes": 193698
+      },
+      "test_metadata.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/test_metadata.csv",
+        "exists": true,
+        "sha256": "04e19888d9cf0f19d337cdc21c08e1f952b3281a89b3857a4ff735d7f25a27d8",
+        "size_bytes": 3088374
+      },
+      "expert_predictions.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/expert_predictions.csv",
+        "exists": true,
+        "sha256": "482f2e82b2eca1e371f48ee791e86cf50b5c73adb8e69d871efb8e857d8e6805",
+        "size_bytes": 12192167
+      },
+      "capacity.csv": {
+        "path": "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/processed/capacity.csv",
+        "exists": true,
+        "sha256": "731db606bb37bf6dde78e536bc48b796d208f5371c08fb2c7a21e07c3fdc980c",
+        "size_bytes": 17
+      }
+    },
+    "combined_dataset_sha256": "700054c730a0cffb23b85ae2c39a64ef485dc95053aac1c95d42d44ed454d9b7"
+  },
+  "split": {
+    "train_size": 0.7,
+    "val_size": 0.15,
+    "test_size": 0.15,
+    "random_state": 42,
+    "stratify": true
+  },
+  "seeds": {
+    "experiment_seed": 42,
+    "split_random_state": 42,
+    "model_xgboost_random_state": 42,
+    "model_random_forest_random_state": 42,
+    "baselines_random_state": 42,
+    "bootstrap_seed": 42
+  },
+  "costs": {
+    "false_positive": 0.057,
+    "false_negative": 1.0,
+    "human_review": 0.05,
+    "escalation": 0.1
+  },
+  "magd_settings": {
+    "mode": "constrained",
+    "risk_weights_config_default": {
+      "distance_uncertainty": 0.25,
+      "calibration_risk": 0.2,
+      "neighbor_error_rate": 0.2,
+      "wrong_confident_risk": 0.25,
+      "drift_risk": 0.05,
+      "business_risk": 0.05
+    },
+    "thresholds": {
+      "mode": "validation_quantile",
+      "low_quantile": 0.6,
+      "high_quantile": 0.9,
+      "low_risk": 0.35,
+      "high_risk": 0.7,
+      "high_confidence": 0.8,
+      "wrong_confident": 0.7
+    },
+    "adaptive_threshold": {
+      "enabled": true,
+      "base_threshold": 0.5,
+      "business_risk_weight": 0.1,
+      "fairness_risk_weight": 0.1,
+      "capacity_pressure_weight": 0.1,
+      "value_weight": 0.1,
+      "fairness_weight": 0.1,
+      "capacity_weight": 0.1
+    },
+    "constrained_policy": {
+      "enabled": true,
+      "lambda_overreliance": 1.0,
+      "lambda_capacity": 0.5,
+      "lambda_fairness": 0.5,
+      "lambda_audit": 0.25,
+      "min_correct_rejection": 0.6,
+      "min_audit_coverage": 0.95,
+      "max_overreliance": 0.4,
+      "min_wrong_confident_avoidance": 0.6,
+      "min_deferral_rate": 0.05,
+      "max_deferral_rate": 0.4
+    },
+    "validation_tuned": {
+      "enabled": true,
+      "deferral_budgets": [
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "objective": "cost_recall_f1",
+      "lambda_deferral": 0.02,
+      "lambda_recall": 0.05,
+      "lambda_f1": 0.05,
+      "min_deferral_rate": 0.0,
+      "max_validation_rows": null
+    },
+    "expert_routing": {
+      "top_k_for_escalation": 5,
+      "capacity_enabled": false,
+      "fairness_enabled": true,
+      "capacity_penalty_weight": 0.2,
+      "fairness_penalty_weight": 0.2,
+      "use_majority_vote_for_escalation": true
+    },
+    "costs": {
+      "false_positive": 0.057,
+      "false_negative": 1.0,
+      "escalation": 0.1,
+      "human_review": 0.05
+    }
+  },
+  "review_budgets": {
+    "validation_tuned_deferral_budgets": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "intervention_constraints_deferral_range": [
+      0.05,
+      0.4
+    ]
+  },
+  "panel_k": {
+    "escalation_top_k_experts": 5,
+    "note": "top-k reliable experts used for majority-vote escalation (Section 3.6/3.7 of the method section)",
+    "neighbourhood_k_distinct_from_panel_k": 5,
+    "neighbourhood_k_note": "kNN neighbourhood-reliability k (local_reliability.py) - a different k from the escalation panel size above"
+  },
+  "validation_selection_rules": {
+    "magd_risk_thresholds": {
+      "rule": "low_risk/high_risk are the low_quantile/high_quantile of magd_assurance_risk computed on the VALIDATION split only, frozen once, then applied unchanged to train/val/test.",
+      "mode": "validation_quantile",
+      "low_quantile": 0.6,
+      "high_quantile": 0.9,
+      "implementation": "src/assurance/magd_risk.py::resolve_magd_risk_thresholds, derive_validation_risk_thresholds"
+    },
+    "magd_learned_weights": {
+      "rule": "SLSQP (fallback: coarse grid) minimizing cost_sensitive_loss + lambda_overreliance*overreliance, evaluated only on a validation-split policy frame.",
+      "implementation": "src/deferral/magd_policy.py::learn_policy_variant, evaluate_policy_weights"
+    },
+    "magd_constrained_weights": {
+      "rule": "Same search as magd_learned_weights, with added capacity/fairness/audit-gap penalty terms and a hard correct_rejection floor; evaluated on validation only.",
+      "implementation": "src/deferral/magd_policy.py::learn_policy_variant(variant='constrained')"
+    },
+    "magd_constrained_thresholds": {
+      "rule": "SLSQP (fallback: grid derived from the 30/50/70th and 75/90/97th percentiles of the validation magd_assurance_risk distribution) minimizing cost + constraint penalties, subject to overreliance/WCA/deferral-rate/audit-coverage constraints; evaluated on validation only. feasible=False is reported explicitly when no candidate satisfies all constraints.",
+      "implementation": "src/deferral/magd_constrained.py::_optimize_policy, _candidate_grids"
+    },
+    "magd_validation_tuned_policy": {
+      "rule": "Grid search over {config-default, equal-weight, and a systematic multi-evidence weight grid} x {deferral budgets [1%,2%,5%,10%,20%]}, minimizing a cost/deferral/recall/F1 objective, evaluated on validation only. The single selected (weights, budget, threshold) triple is frozen and applied to test exactly once.",
+      "objective": "cost_recall_f1",
+      "implementation": "src/deferral/magd_validation_tuned.py::tune_validation_policy, _weight_candidates"
+    },
+    "test_label_usage": "Test labels are used only for final offline metrics/statistical tests after every threshold/weight/budget selection above is frozen. Enforced by src/utils/scientific_checks.py::deployable_y_true_guard and verified by dedicated leakage tests (test_calibration.py, test_local_reliability.py, test_magd_deferral.py, test_magd_constrained.py, test_magd_validation_tuned.py)."
+  },
+  "resolved_runtime_values": {
+    "note": "Values actually produced by validation-only selection for this run, as opposed to config.yaml's static fallback defaults shown in magd_settings above.",
+    "magd_risk_thresholds": {
+      "mode": "validation_quantile",
+      "low_quantile": 0.6,
+      "high_quantile": 0.9,
+      "low_risk": 0.16248057534570207,
+      "high_risk": 0.22450586646613244,
+      "validation_rows": 119323,
+      "derived_from_split": "val",
+      "generated_at_utc": "2026-08-17T18:40:12.610734+00:00"
+    },
+    "heuristic_weights": {
+      "variant": "heuristic",
+      "objective": "3.0",
+      "distance_uncertainty": "0.2777777777777778",
+      "calibration_risk": "0.22222222222222224",
+      "neighbor_error_rate": "0.22222222222222224",
+      "wrong_confident_risk": "0.2777777777777778",
+      "drift_risk": "0.0",
+      "business_risk": "0.0"
+    },
+    "learned_weights": {
+      "variant": "learned",
+      "objective": "3.012",
+      "distance_uncertainty": "0.25",
+      "calibration_risk": "0.25",
+      "neighbor_error_rate": "0.25",
+      "wrong_confident_risk": "0.25",
+      "drift_risk": "0.0",
+      "business_risk": "0.0"
+    },
+    "constrained_weight_search_weights": {
+      "variant": "constrained",
+      "objective": "1000003.012",
+      "distance_uncertainty": "0.25",
+      "calibration_risk": "0.25",
+      "neighbor_error_rate": "0.25",
+      "wrong_confident_risk": "0.25",
+      "drift_risk": "0.0",
+      "business_risk": "0.0"
+    },
+    "validation_tuned_selected_policy": {
+      "budget": 0.01,
+      "threshold": 0.1404431094936774,
+      "weights": {
+        "distance_uncertainty": 0.25,
+        "calibration_risk": 0.5,
+        "neighbor_error_rate": 0.25,
+        "wrong_confident_risk": 0.0,
+        "drift_risk": 0.0,
+        "business_risk": 0.0
+      },
+      "selection_metric": "cost_recall_f1",
+      "objective": 0.006612372051058224
+    },
+    "constrained_selected_params": {
+      "low_risk": 0.16248057534570207,
+      "high_risk": 0.22450586646613244,
+      "magd_high_threshold": 0.22450586646613244,
+      "wrong_confident_threshold": 0.7,
+      "base_threshold": 0.5,
+      "ai_cost_scale": 1.0,
+      "ai_cost_margin": 0.01,
+      "deferral_target": 0.225
+    },
+    "constrained_feasible_found": false
+  }
+}

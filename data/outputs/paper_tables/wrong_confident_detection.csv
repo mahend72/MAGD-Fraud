@@ -1,0 +1,2 @@
+precision,recall,f1,top_k_capture_rate,top_k_count,offline_wrong_confident_count,risk_alert_threshold,high_conf_threshold,wrong_confident_detection_precision,wrong_confident_detection_recall,wrong_confident_detection_f1,top_k_wrong_confident_capture_rate
+0.0,0.0,0.0,0.07911065149948293,21617.0,1934.0,0.7,0.9,0.0,0.0,0.0,0.07911065149948293

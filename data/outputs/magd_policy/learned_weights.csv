@@ -1,0 +1,4 @@
+variant,objective,distance_uncertainty,calibration_risk,neighbor_error_rate,wrong_confident_risk,drift_risk,business_risk
+heuristic,3.0,0.2777777777777778,0.22222222222222224,0.22222222222222224,0.2777777777777778,0.0,0.0
+learned,3.012,0.25,0.25,0.25,0.25,0.0,0.0
+constrained,1000003.012,0.25,0.25,0.25,0.25,0.0,0.0

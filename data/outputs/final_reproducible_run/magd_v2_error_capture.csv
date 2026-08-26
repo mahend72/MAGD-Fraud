@@ -1,0 +1,5 @@
+risk_fraction_reviewed_pct,n_cases,ai_errors_captured,ai_error_rate_within_selection_pct,pct_of_all_ai_errors_captured,enrichment_vs_overall_prevalence,total_cases_n,total_ai_errors_n,overall_ai_error_rate_pct,score_column,boundary_convention
+1,968,305,31.5083,21.4487,21.4582,96843,1422,1.4684,magd_assurance_risk,"n_top = max(1, round(n * pct/100)); ties broken by pandas stable sort order (magd_v2.py _discrimination_summary convention)"
+5,4842,605,12.4948,42.5457,8.5094,96843,1422,1.4684,magd_assurance_risk,"n_top = max(1, round(n * pct/100)); ties broken by pandas stable sort order (magd_v2.py _discrimination_summary convention)"
+10,9684,656,6.7741,46.1322,4.6134,96843,1422,1.4684,magd_assurance_risk,"n_top = max(1, round(n * pct/100)); ties broken by pandas stable sort order (magd_v2.py _discrimination_summary convention)"
+20,19369,686,3.5417,48.2419,2.412,96843,1422,1.4684,magd_assurance_risk,"n_top = max(1, round(n * pct/100)); ties broken by pandas stable sort order (magd_v2.py _discrimination_summary convention)"

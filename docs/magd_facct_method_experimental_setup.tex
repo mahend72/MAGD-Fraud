@@ -1,0 +1,307 @@
+\section{Method}
+\label{sec:method}
+
+We propose \textbf{MAGD-Fraud} (\textbf{M}ulti-evidence \textbf{A}ssurance-\textbf{G}uided \textbf{D}eferral), a Human--AI routing framework for financial fraud alert review. The key motivation is that \emph{distance-only uncertainty is often too weak for fraud review}, where positive cases are rare, heterogeneous, and frequently locally irregular. Rather than routing cases using a single confidence or uncertainty signal, MAGD-Fraud constructs a \emph{multi-evidence assurance representation} and uses it to choose among three actions for each case: rely on AI, defer to a selected synthetic expert, or escalate to a panel of reliable experts.
+
+Our focus is not only predictive performance, but also \emph{assurance-aware reliance}: reducing harmful overreliance on wrong AI predictions, supporting justified expert intervention, and preserving auditable routing behavior under asymmetric fraud costs and limited expert capacity.
+
+\subsection{Base Fraud Predictor}
+\label{subsec:base_predictor}
+
+For each case $x_i$, a fraud predictor outputs a score $p_i \in [0,1]$ and binary prediction
+\begin{equation}
+\hat{y}^{AI}_i = \mathbb{1}[p_i \ge \tau_{\text{model}}],
+\end{equation}
+where $\tau_{\text{model}}$ is the configured operating threshold. In the current implementation, the predictor is either an existing benchmark AI score supplied by FiFAR or a learned tabular classifier, with XGBoost as the preferred model and Random Forest as fallback.
+
+MAGD-Fraud does not primarily contribute a new predictor. Its main contribution is a routing layer that reasons about \emph{whether} and \emph{when} to rely on AI.
+
+\subsection{Deployable Assurance Signals}
+\label{subsec:assurance_signals}
+
+MAGD-Fraud computes a collection of deployable assurance signals for each case.
+
+\paragraph{Numerical confidence.}
+For binary fraud prediction, we define
+\begin{equation}
+c_i = \max(p_i, 1-p_i),
+\end{equation}
+which captures how confident the model appears under its own score distribution.
+
+\paragraph{Calibration risk.}
+We estimate bin-wise calibration error on held-out predictions by comparing average confidence with observed accuracy. Each case inherits the absolute calibration gap of its bin:
+\begin{equation}
+r^{cal}_i = \left|\text{conf}_{bin(i)} - \text{acc}_{bin(i)}\right|.
+\end{equation}
+
+\paragraph{Distance-based uncertainty.}
+We project tabular features into a PCA embedding space and compute class centroids from training data. Let $z_i$ be the embedding of case $i$ and $\mu_{\hat{y}^{AI}_i}$ the centroid of the predicted class. We compute
+\begin{equation}
+d_i = \|z_i - \mu_{\hat{y}^{AI}_i}\|_2,
+\end{equation}
+then normalize and invert this quantity to obtain distance confidence and distance uncertainty:
+\begin{equation}
+u_i = 1 - \text{distance\_confidence}_i.
+\end{equation}
+This recovers the centroid-based uncertainty baseline that MAGD-Fraud extends.
+
+\paragraph{Local neighbourhood reliability.}
+Centroid-only uncertainty assumes relatively clean global structure, which is often unrealistic for fraud data. We therefore augment it with local historical evidence. For each case, we retrieve the $k$ nearest historical training examples in embedding space and compute local reliability statistics. The primary deployable local-risk term is
+\begin{equation}
+r^{nbr}_i = \frac{1}{k}\sum_{j \in \mathcal{N}_k(i)} \mathbb{1}[\hat{y}^{AI}_j \neq y_j],
+\end{equation}
+where $\mathcal{N}_k(i)$ is the set of nearest historical neighbors of case $i$. We also record local fraud prevalence, neighbor--AI agreement, and mean neighbor distance.
+
+Critically, this signal uses only \emph{historical training labels and historical AI correctness}; it does not use test labels.
+
+\paragraph{Wrong-confident AI risk.}
+We explicitly model the risk that the AI appears confident but may still fail. Let
+\begin{equation}
+\Delta_i = \left|c_i - \text{distance\_confidence}_i\right|
+\end{equation}
+denote disagreement between score-based and distance-based confidence. We define deployable wrong-confident risk as
+\begin{equation}
+r^{wc}_i =
+\frac{
+\alpha_1 c_i +
+\alpha_2 u_i +
+\alpha_3 r^{cal}_i +
+\alpha_4 r^{nbr}_i +
+\alpha_5 \Delta_i
+}{
+\sum_{m=1}^{5}\alpha_m
+},
+\end{equation}
+followed by clipping to $[0,1]$.
+
+This score is deployable by construction. Ground truth is used only offline to assess whether the score captures wrong-but-confident AI failures.
+
+\subsection{MAGD Assurance Risk}
+\label{subsec:magd_risk}
+
+MAGD-Fraud aggregates multiple assurance signals into a single case-level deployable risk:
+\begin{equation}
+\text{MAGD\_AR}_i =
+\frac{
+w_1 u_i +
+w_2 r^{cal}_i +
+w_3 r^{nbr}_i +
+w_4 r^{wc}_i +
+w_5 r^{drift}_i +
+w_6 r^{biz}_i
+}{
+\sum_{m=1}^{6} w_m
+}.
+\end{equation}
+Here $r^{drift}_i$ and $r^{biz}_i$ denote optional drift and business-risk signals. When these signals are unavailable, the implementation sets them to zero and records that they were unavailable in the audit outputs.
+
+We discretize the resulting score into three routing-oriented categories:
+\begin{itemize}
+\item \textbf{low risk} if $\text{MAGD\_AR}_i < \tau_{low}$,
+\item \textbf{medium risk} if $\tau_{low} \le \text{MAGD\_AR}_i < \tau_{high}$,
+\item \textbf{high risk} if $\text{MAGD\_AR}_i \ge \tau_{high}$.
+\end{itemize}
+
+\subsection{Adaptive Thresholding}
+\label{subsec:adaptive_threshold}
+
+Single global thresholds can be too rigid for fraud review. MAGD-Fraud therefore computes a case-specific threshold
+\begin{equation}
+\tau_i = \tau_0
++ \beta_1 r^{biz}_i
++ \beta_2 r^{fair}_i
++ \beta_3 r^{cap}_i,
+\end{equation}
+where $\tau_0$ is a base threshold, $r^{biz}_i$ is optional business risk, $r^{fair}_i$ is optional fairness risk, and $r^{cap}_i$ is capacity pressure. The threshold is clipped to $[0,1]$. Missing optional signals are replaced with zero and logged.
+
+\subsection{Expert Reliability, Fairness, and Capacity}
+\label{subsec:expert_routing}
+
+MAGD-Fraud assumes a panel of synthetic experts provided by the FiFAR benchmark. For each expert $j$, we estimate historical:
+\begin{itemize}
+\item accuracy,
+\item false-positive rate,
+\item false-negative rate,
+\item cost-sensitive loss,
+\item group-wise false-positive and false-negative rates when sensitive attributes are available,
+\item bias risk,
+\item remaining capacity.
+\end{itemize}
+
+The expected cost of sending case $i$ to expert $j$ is defined as
+\begin{equation}
+L_{\text{expert},j}(i) =
+\lambda_{FP}\,\text{FPR}_j
++ \lambda_{FN}\,\text{FNR}_j
++ \lambda_{fair}\,\text{BiasRisk}_j
++ \lambda_{cap}\,\text{CapacityPenalty}_j.
+\end{equation}
+
+The AI expected cost is approximated as
+\begin{equation}
+L_{AI}(i) =
+\lambda_{FP}\,\widehat{FP\_risk}_i
++ \lambda_{FN}\,\widehat{FN\_risk}_i
++ \text{MAGD\_AR}_i.
+\end{equation}
+
+\subsection{Routing Policy}
+\label{subsec:routing_policy}
+
+For each case, MAGD-Fraud combines assurance risk, adaptive thresholding, and expected-cost comparisons to choose one of three routes.
+
+\paragraph{AI route.}
+The system uses AI when assurance risk is low, the adaptive threshold is satisfied, and AI expected cost is no larger than the best available expert alternative.
+
+\paragraph{Expert route.}
+The system defers to a selected expert when assurance risk is medium or when expert expected cost is lower than AI expected cost.
+
+\paragraph{Escalation route.}
+The system escalates when assurance risk is high or wrong-confident risk is high. Escalation is implemented as majority vote among the top-$k$ most reliable available experts.
+
+Oracle predictions are not used in deployable routing.
+
+\subsection{Heuristic, Learned, and Constrained Variants}
+\label{subsec:policy_variants}
+
+We implement three MAGD-Fraud variants.
+
+\paragraph{MAGD-Heuristic.}
+This variant uses configured evidence weights directly. It is the most interpretable extension of distance-only uncertainty.
+
+\paragraph{MAGD-Learned.}
+This variant learns evidence weights on the validation split by minimizing
+\begin{equation}
+\mathcal{L}_{learned} =
+\text{FraudLoss}
++ \lambda_{over}\,\text{OverReliance}.
+\end{equation}
+
+\paragraph{MAGD-Constrained.}
+This variant augments the objective with operational and assurance penalties:
+\begin{equation}
+\mathcal{L}_{constrained} =
+\text{FraudLoss}
++ \lambda_{over}\,\text{OverReliance}
++ \lambda_{cap}\,\text{CapacityViolation}
++ \lambda_{fair}\,\text{FairnessPenalty}
++ \lambda_{audit}\,\text{AuditGap},
+\end{equation}
+subject to
+\begin{equation}
+\text{CorrectRejection} \ge \tau_{CR}
+\end{equation}
+and
+\begin{equation}
+\text{AuditCoverage} \ge \tau_{audit}.
+\end{equation}
+
+Weights are learned on validation data only. Test labels are used only for final reporting.
+
+\subsection{Leakage Boundary}
+\label{subsec:leakage_boundary}
+
+The main methodological guardrail is that no deployable routing function uses test ground truth. Local neighbourhood reliability uses historical training correctness only, wrong-confident deployable risk excludes test labels, MAGD assurance risk is computed from deployable signals only, and final routing depends on deployable signals and historical expert statistics only. Ground truth is used only for model training, validation-time policy learning, and offline evaluation.
+
+\section{Experimental Setup}
+\label{sec:experimental_setup}
+
+\subsection{Dataset and Task}
+\label{subsec:data_task}
+
+We evaluate MAGD-Fraud on the FiFAR financial fraud alert review setting. The task is binary fraud prediction with downstream Human--AI routing. Each case is associated with tabular features, a ground-truth fraud label, AI predictions or AI scores, and synthetic expert predictions. When available, the setup may also include capacity and sensitive-attribute information for fairness-aware analysis.
+
+An important scope note is that the experts in this benchmark are \emph{synthetic experts}, not real human reviewers. Accordingly, our evaluation is computational rather than a human-subject study.
+
+\subsection{Data Splits}
+\label{subsec:data_splits}
+
+The repository uses explicit train, validation, and test splits:
+\begin{itemize}
+\item \textbf{training split:} base model fitting, embeddings, and historical local reliability statistics,
+\item \textbf{validation split:} learning MAGD-Learned and MAGD-Constrained policy weights,
+\item \textbf{test split:} final reporting only.
+\end{itemize}
+
+This split discipline is important for preventing label leakage into deployable routing.
+
+\subsection{Predictive Model Setup}
+\label{subsec:model_setup}
+
+The base predictor is either provided by the benchmark or trained from tabular features. In the current implementation, XGBoost is used when available, with Random Forest as fallback. A fixed operating threshold produces binary AI predictions. We evaluate the predictive layer with standard fraud metrics and cost-sensitive loss.
+
+\subsection{Assurance and Routing Configuration}
+\label{subsec:assurance_setup}
+
+MAGD-Fraud is configured through evidence toggles, risk weights, adaptive-threshold parameters, expert-routing penalties, and fraud-cost parameters. The main evidence terms are:
+\begin{itemize}
+\item numerical confidence,
+\item calibration risk,
+\item distance uncertainty,
+\item local neighbour error rate,
+\item wrong-confident AI risk.
+\end{itemize}
+
+Optional terms such as drift risk, business risk, fairness risk, and capacity pressure are included when available and otherwise default to zero with explicit logging.
+
+\subsection{Baselines}
+\label{subsec:baselines}
+
+We compare MAGD-Fraud against multiple alternatives:
+\begin{itemize}
+\item AI-only,
+\item best-expert,
+\item random-expert,
+\item numerical-confidence thresholding,
+\item distance-threshold deferral,
+\item learning-to-defer baseline,
+\item oracle upper bound.
+\end{itemize}
+
+These baselines are intended to test whether MAGD-Fraud improves over both simple threshold policies and a stronger learned rejector.
+
+\subsection{Evaluation Metrics}
+\label{subsec:metrics}
+
+We report predictive, reliance, routing, and audit-oriented metrics.
+
+\paragraph{Fraud performance.}
+We report precision, recall, F1, and cost-sensitive loss. Cost-sensitive loss is particularly important because false positives and false negatives have asymmetric operational consequences in fraud review.
+
+\paragraph{Human--AI assurance metrics.}
+We report:
+\begin{itemize}
+\item overreliance,
+\item underreliance,
+\item correct rejection,
+\item wrong-confident avoidance,
+\item assurance effectiveness on high-risk cases,
+\item audit coverage.
+\end{itemize}
+
+\paragraph{Routing metrics.}
+We report:
+\begin{itemize}
+\item AI coverage,
+\item expert deferral rate,
+\item escalation rate,
+\item capacity violation rate when capacity data are available.
+\end{itemize}
+
+\paragraph{Fairness metrics.}
+When sensitive attributes are available, we compute group-wise false-positive and false-negative rates and summarize disparity-based fairness penalties.
+
+\subsection{Statistical Testing}
+\label{subsec:stat_tests}
+
+We compare selected methods using paired significance analyses, including McNemar tests for paired correctness, bootstrap confidence intervals for key metric differences, and Wilcoxon signed-rank tests when case-level paired losses are available.
+
+\subsection{Audit and Reproducibility Outputs}
+\label{subsec:audit_outputs}
+
+The pipeline produces decision logs, assurance-risk files, learned policy weights, claim-evidence matrices, paper tables, and audit-pack artifacts. These outputs are intended to support both empirical comparison and audit-oriented inspection of why specific routing decisions were made.
+
+\subsection{Scope and Limitations}
+\label{subsec:scope_limitations}
+
+Our evaluation is a computational benchmark study on FiFAR. It does not establish human-subject validity, operational deployment validity, or institutional workflow fit. The dashboard included in the repository should therefore be interpreted as a prototype interface rather than evidence of validated human use.

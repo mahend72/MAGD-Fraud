@@ -1,0 +1,8 @@
+claim_id,claim_text,evidence_fields,coverage_score,missing_evidence_count,example_case_ids
+C1,AI confidence is reliable enough for use.,"numerical_confidence, calibration_risk",1.0,0,"903157, 903158, 903159"
+C2,Distance uncertainty was assessed.,distance_uncertainty,1.0,0,"903157, 903158, 903159"
+C3,Similar historical cases support or weaken AI reliance.,neighbor_error_rate,1.0,0,"903157, 903158, 903159"
+C4,Wrong-confident AI risk was assessed.,wrong_confident_risk,1.0,0,"903157, 903158, 903159"
+C5,Expert review or escalation was justified.,"selected_route, selected_expert, decision_reason",1.0,0,"903157, 903158, 903159"
+C6,The final routing decision is reconstructable.,"ai_pred, selected_route, final_prediction, decision_reason",1.0,0,"903157, 903158, 903159"
+C7,Optional fairness/capacity evidence was considered when available.,"fairness_risk, capacity_status",1.0,0,"903157, 903158, 903159"

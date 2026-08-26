@@ -1,0 +1,206 @@
+[
+  {
+    "table_name": "dataset_summary",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/dataset_summary.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [],
+    "missing_values": {},
+    "warnings": []
+  },
+  {
+    "table_name": "ai_assurance",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/ai_assurance.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "test",
+      "train",
+      "val"
+    ],
+    "missing_values": {},
+    "warnings": []
+  },
+  {
+    "table_name": "baseline_comparison",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/baseline_comparison.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "AI-only",
+      "best expert only",
+      "distance threshold",
+      "learning-to-defer baseline",
+      "numerical threshold",
+      "oracle upper bound",
+      "random expert"
+    ],
+    "missing_values": {
+      "pr_auc": 5
+    },
+    "warnings": []
+  },
+  {
+    "table_name": "intervention_calibrated_results",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/intervention_calibrated_results.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "MAGD-Constrained"
+    ],
+    "missing_values": {},
+    "warnings": []
+  },
+  {
+    "table_name": "human_ai_metrics",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/human_ai_metrics.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "AI-only",
+      "MAGD-Constrained",
+      "MAGD-Fraud-ValidationTuned",
+      "MAGD-Heuristic",
+      "MAGD-Learned",
+      "best expert only",
+      "distance threshold",
+      "learning-to-defer baseline",
+      "numerical threshold",
+      "oracle upper bound",
+      "random expert"
+    ],
+    "missing_values": {
+      "pr_auc": 5
+    },
+    "warnings": []
+  },
+  {
+    "table_name": "magd_risk_calibration",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/magd_risk_calibration.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [],
+    "missing_values": {},
+    "warnings": []
+  },
+  {
+    "table_name": "ablation",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/ablation.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "distance_only",
+      "distance_plus_calibration",
+      "distance_plus_neighbor_error",
+      "distance_plus_wrong_confident",
+      "full_magd_constrained_capacity_if_available",
+      "full_magd_constrained_fairness_if_available",
+      "full_magd_constrained_initial",
+      "full_magd_constrained_intervention_calibrated",
+      "full_magd_heuristic",
+      "full_magd_learned"
+    ],
+    "missing_values": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "pr_auc": 1,
+      "cost_sensitive_loss": 1,
+      "overreliance": 1,
+      "underreliance": 1,
+      "correct_rejection": 1,
+      "wrong_confident_avoidance": 1,
+      "ai_coverage": 1,
+      "expert_deferral_rate": 1,
+      "escalation_rate": 1,
+      "capacity_violation_rate": 1,
+      "fairness_disparity": 1,
+      "fairness_available": 1,
+      "audit_coverage": 1,
+      "evidence_completeness": 1
+    },
+    "warnings": []
+  },
+  {
+    "table_name": "auditability",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/auditability.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "magd_constrained_calibrated"
+    ],
+    "missing_values": {},
+    "warnings": []
+  },
+  {
+    "table_name": "statistical_comparison",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/data/outputs/paper_tables/statistical_comparison.csv"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [],
+    "missing_values": {
+      "p_value": 25,
+      "ci_low": 25,
+      "ci_high": 25
+    },
+    "warnings": []
+  },
+  {
+    "table_name": "implementation_structure",
+    "source_files": [
+      "/mnt/c/Users/kumar2_m/Human-AI-Assurance/haaf_fifar/docs/implementation_coverage_report.md"
+    ],
+    "generated_timestamp": "2026-08-17T19:49:21.443145+00:00",
+    "methods_included": [
+      "1. Load and preprocess FiFAR-style train/val/test data",
+      "10. Statistical comparisons",
+      "11. Paper-ready tables",
+      "12. Audit and claim-evidence outputs",
+      "13. Strict no-test-label-leakage in deployable routing",
+      "2. Reuse existing AI scores or train a classifier",
+      "3a. Numerical confidence",
+      "3b. Calibration risk",
+      "3c. Distance uncertainty",
+      "3d. Local neighbour error rate",
+      "3e. Wrong-confident AI risk",
+      "3f. Optional drift risk",
+      "3g. Optional business risk",
+      "4. Combine signals into MAGD assurance risk",
+      "5. Route cases to AI, expert, or escalation",
+      "5a. Expected-cost routing",
+      "5b. Fairness-aware routing",
+      "5c. Capacity-aware routing",
+      "5d. Intervention constraints",
+      "6a. AI-only baseline",
+      "6b. Best expert baseline",
+      "6c. Random expert baseline",
+      "6d. Confidence-threshold baseline",
+      "6e. Distance-threshold baseline",
+      "6f. Learning-to-defer baseline",
+      "6g. Oracle upper bound",
+      "7a. Precision / recall / F1 / PR-AUC",
+      "7b. Cost-sensitive loss",
+      "7c. Overreliance",
+      "7d. Underreliance",
+      "7e. Correct rejection",
+      "7f. Wrong-confident avoidance",
+      "7g. AI coverage",
+      "7h. Expert deferral rate",
+      "7i. Escalation rate",
+      "7j. Audit coverage",
+      "8. MAGD ablations",
+      "9. MAGD risk calibration analysis"
+    ],
+    "missing_values": {},
+    "warnings": []
+  }
+]

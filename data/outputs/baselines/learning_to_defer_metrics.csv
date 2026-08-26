@@ -1,0 +1,2 @@
+model_name,feature_set,feature_columns,precision,recall,f1,pr_auc,false_positives,false_negatives,false_positive_rate,false_negative_rate,cost_sensitive_loss,ai_coverage,human_deferral_rate
+logistic_regression,standard,"ai_score,numerical_confidence,distance_uncertainty,calibration_risk,neighbor_error_rate,wrong_confident_risk",0.6986027944111777,0.24509803921568626,0.36288232244686364,0.20398419895975525,151.0,1078.0,0.0015825603940680187,0.7549019607843137,1086.607,0.9625476286360398,0.03745237136396022

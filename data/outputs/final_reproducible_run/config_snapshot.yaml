@@ -1,0 +1,243 @@
+project:
+  name: haaf_fifar
+
+experiment:
+  seed: 42
+  output_dir: data/outputs
+  use_existing_scores: true
+  test_labels_allowed_for_routing: false
+
+data:
+  dataset_name: fifar
+  train_path: data/processed/X_train.csv
+  val_path: data/processed/X_val.csv
+  test_path: data/processed/X_test.csv
+  y_train_path: data/processed/y_train.csv
+  y_val_path: data/processed/y_val.csv
+  y_test_path: data/processed/y_test.csv
+  sensitive_attribute: customer_age
+
+paths:
+  raw_data_dir: data/raw
+  processed_data_dir: data/processed
+  outputs_dir: data/outputs
+
+dataset:
+  main_file: null
+  train_file: data/ICAIF_KAGGLE/testbed/train/small__regular/train.csv
+  test_file: data/ICAIF_KAGGLE/testbed/test/test.csv
+  expert_predictions_file: data/ICAIF_KAGGLE/testbed/test/test_expert_pred.csv
+  historical_expert_predictions_file: data/ICAIF_KAGGLE/experts/train_predictions.csv
+  capacity_file: null
+  file_patterns:
+    - "*.csv"
+    - "*.parquet"
+    - "*.tsv"
+    - "*.xlsx"
+    - "*.xls"
+    - "*.json"
+
+columns:
+  case_id: case_id
+  application_id: null
+  batch_id: batch
+  time: month
+  label: fraud_label
+  train_label: fraud_bool
+  test_label: fraud_label
+  prediction: null
+  model_score: model_score
+  expert_case_id: case_id
+  expert_prediction: sparse#7
+  capacity_case_id: null
+  capacity: null
+  sensitive_attributes:
+    - customer_age
+
+split:
+  train_size: 0.7
+  val_size: 0.15
+  test_size: 0.15
+  random_state: 42
+  stratify: true
+
+model:
+  model_type: xgboost
+  fallback_model: random_forest
+  threshold: 0.5
+  false_positive_cost: 1.0
+  false_negative_cost: 5.0
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    reg_lambda: 1.0
+    random_state: 42
+  random_forest:
+    n_estimators: 300
+    max_depth: null
+    min_samples_leaf: 1
+    random_state: 42
+
+costs:
+  false_positive: 0.057
+  false_negative: 1.0
+  human_review: 0.05
+  escalation: 0.10
+
+assurance:
+  n_bins_calibration: 10
+  embedding_method: pca
+  pca_components: 20
+  knn_k: 25
+  high_confidence_threshold: 0.80
+  calibration_bins: 10
+  neighbor_top_k: 5
+  assurance_risk:
+    low_threshold: 0.33
+    high_threshold: 0.66
+    weights:
+      calibration_risk: 0.2
+      distance_uncertainty: 0.2
+      neighbor_error_rate: 0.2
+      wrong_confident_risk: 0.3
+      business_risk: 0.1
+  wrong_confident:
+    high_conf_threshold: 0.9
+    risk_alert_threshold: 0.7
+    top_k_fraction: 0.1
+    weights:
+      numerical_confidence: 0.25
+      distance_uncertainty: 0.2
+      calibration_risk: 0.2
+      neighbor_error_rate: 0.2
+      confidence_disagreement: 0.15
+  distance_embedding:
+    method: pca
+    n_components: 8
+  distance_thresholds:
+    - 0.5
+    - 0.6
+    - 0.7
+    - 0.8
+    - 0.9
+
+baselines:
+  numerical_conf_threshold: 0.9
+  distance_conf_threshold: 0.7
+  random_state: 42
+
+assurance_deferral:
+  escalation_top_k_experts: 5
+  assurance_risk_penalty: 1.0
+  bias_penalty_weight: 1.0
+  capacity_penalty_weight: 1.0
+
+magd:
+  mode: "constrained"
+  use_distance_uncertainty: true
+  use_calibration_risk: true
+  use_neighbor_error_rate: true
+  use_wrong_confident_risk: true
+  use_drift_risk: false
+  use_business_risk: false
+  weights:
+    distance_uncertainty: 0.25
+    calibration_risk: 0.20
+    neighbor_error_rate: 0.20
+    wrong_confident_risk: 0.25
+    drift_risk: 0.05
+    business_risk: 0.05
+
+  signals:
+    use_distance_uncertainty: true
+    use_calibration_risk: true
+    use_neighbor_error_rate: true
+    use_wrong_confident_risk: true
+    use_drift_risk: false
+    use_business_risk: false
+    use_capacity_penalty: true
+    use_fairness_penalty: true
+
+  risk_weights:
+    distance_uncertainty: 0.25
+    calibration_risk: 0.20
+    neighbor_error_rate: 0.20
+    wrong_confident_risk: 0.25
+    drift_risk: 0.05
+    business_risk: 0.05
+
+  thresholds:
+    low_risk: 0.35
+    high_risk: 0.70
+    high_confidence: 0.80
+    wrong_confident: 0.70
+
+  adaptive_threshold:
+    enabled: true
+    base_threshold: 0.50
+    business_risk_weight: 0.10
+    fairness_risk_weight: 0.10
+    capacity_pressure_weight: 0.10
+
+  constrained_policy:
+    enabled: true
+    lambda_overreliance: 1.0
+    lambda_capacity: 0.5
+    lambda_fairness: 0.5
+    lambda_audit: 0.25
+    min_correct_rejection: 0.60
+    min_audit_coverage: 0.95
+
+  validation_tuned:
+    enabled: true
+    deferral_budgets:
+      - 0.01
+      - 0.02
+      - 0.05
+      - 0.10
+      - 0.20
+    objective: cost_recall_f1
+    lambda_deferral: 0.02
+    lambda_recall: 0.05
+    lambda_f1: 0.05
+    min_deferral_rate: 0.0
+    max_validation_rows: null
+
+  expert_routing:
+    top_k_for_escalation: 5
+    use_majority_vote_for_escalation: true
+    capacity_penalty_weight: 0.20
+    fairness_penalty_weight: 0.20
+
+  costs:
+    false_positive: 0.057
+    false_negative: 1.0
+    human_review: 0.05
+    escalation: 0.10
+
+intervention_constraints:
+  enabled: true
+  max_overreliance: 0.40
+  min_wrong_confident_avoidance: 0.60
+  min_deferral_rate: 0.05
+  max_deferral_rate: 0.40
+  min_audit_coverage: 0.95
+
+expert_routing:
+  top_k_for_escalation: 5
+  use_majority_vote_for_escalation: true
+  capacity_enabled: false
+  fairness_enabled: true
+  capacity_penalty_weight: 0.20
+  fairness_penalty_weight: 0.20
+
+statistics:
+  bootstrap_iterations: 1000
+  confidence_level: 0.95
+
+inspection:
+  max_rows_preview: 5
+  max_candidate_columns_per_group: 10

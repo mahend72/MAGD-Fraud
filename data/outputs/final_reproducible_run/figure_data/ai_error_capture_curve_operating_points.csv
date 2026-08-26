@@ -1,0 +1,5 @@
+reviewed_pct,n_cases,ai_errors_captured,pct_of_all_ai_errors_captured
+1,968,305,21.45
+5,4842,605,42.55
+10,9684,656,46.13
+20,19369,686,48.24
