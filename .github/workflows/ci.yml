@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  research-assurance-checks:
+    name: Unit tests, scientific invariants, and artifact consistency
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Static import / syntax check
+        run: python -m compileall -q src scripts tests
+
+      # test_all_canonical_decision_logs_match_saved_hashes compares the tracked
+      # canonical_decision_hashes.json against frozen per-case decision logs under
+      # data/outputs/final_reproducible_run/decision_logs/ and magd_v2_test_decisions.csv.
+      # Those decision logs are intentionally excluded from git (see .gitignore) and are
+      # only produced locally by running the full pipeline / freeze scripts, so this one
+      # regression check cannot pass on a fresh checkout and is deselected here rather
+      # than run against absent data. Everything else in the suite uses synthetic,
+      # in-test fixtures and needs no FiFAR data.
+      - name: Run unit tests and scientific invariant tests
+        run: >-
+          pytest -q
+          --deselect tests/test_canonical_integrity.py::test_all_canonical_decision_logs_match_saved_hashes
