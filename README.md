@@ -2,7 +2,7 @@
 
 **Learning AI Reliance Risk for Assurance-Guided Human–AI Routing in Financial Fraud Review**
 
-[![CI](https://github.com/mahend72/MAGD-Fraud/actions/workflows/ci.yml/badge.svg)](https://github.com/mahend72/MAGD-Fraud/actions/workflows/ci.yml)
+[![MAGD-FRAUD CI](https://github.com/mahend72/MAGD-Fraud/actions/workflows/ci.yml/badge.svg)](https://github.com/mahend72/MAGD-Fraud/actions/workflows/ci.yml)
 
 MAGD-Fraud is a research framework for studying **when continued reliance on an AI prediction is justified and when human intervention is warranted**. Financial fraud review is used as the experimental domain, but the primary research problem is broader: **AI assurance for Human–AI decision routing**.
 
