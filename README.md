@@ -42,6 +42,7 @@ The central contribution is an explicit **multi-evidence assurance layer** betwe
 ## Final Assurance Representation
 
 The submitted paper uses:
+sd
 
 - calibration risk;
 - representation-space distance uncertainty;
